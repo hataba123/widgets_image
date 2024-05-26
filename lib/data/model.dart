@@ -1,9 +1,17 @@
 class ProductModel {
-  int? id;
-  String? name;
-  int? price;
-  String? img;
-  String? des;
+  final String? img;
+  final String? name;
+  final int? price;
+  final bool isBestSeller;
+  final bool isNew;
+  final bool isDiscounted;
 
-  ProductModel({this.id, this.name, this.price, this.img, this.des});
+  ProductModel({
+    this.img,
+    this.name,
+    this.price,
+    this.isBestSeller = false,
+    this.isNew = false,
+    this.isDiscounted = false,
+  });
 }
