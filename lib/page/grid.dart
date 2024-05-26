@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/product_category_list.dart';
 import '../data/data.dart';
 import '../config/const.dart';
 import 'package:widgets_image/banner.dart';
@@ -18,6 +19,7 @@ class _MyGridState extends State<MyGrid> {
 
   // categories
   List<String> categories = ['Áo', 'Quần', 'Phụ kiện', 'Giày',"Đồng hồ"];
+  List<String> productcategories =  ['Sale off', 'Bán chạy','Mới nhất'];
   @override
   void initState() {
     super.initState();
@@ -41,13 +43,14 @@ class _MyGridState extends State<MyGrid> {
       ),
       body: Column(
         children: [
+          CategoryList(categories: categories), // Use the CategoryList widget
           BannerWidget(
             images: [
               Image.asset('assets/images/banner_1.jpg', width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
               Image.asset('assets/images/banner_2.jpg', width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
             ],
           ), // Add BannerWidget here
-          CategoryList(categories: categories), // Use the CategoryList widget
+          ProductCategoryList(productcategories: productcategories),
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(16),
