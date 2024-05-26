@@ -62,6 +62,53 @@ class _MyGridState extends State<MyGrid> {
           ),
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Trang chủ'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Tài khoản'),
+              onTap: () {
+                // Handle your functionality here
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Cài đặt'),
+              onTap: () {
+                // Handle your functionality here
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Đăng xuất'),
+              onTap: () {
+                // Handle your functionality here
+              },
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           BannerWidget(
