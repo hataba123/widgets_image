@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/stateful.dart';
 import '../data/data.dart';
 import '../config/const.dart';
 import 'package:widgets_image/banner.dart';
 import 'navbar.dart';
 import 'package:widgets_image/productdetailpage.dart';
 import 'package:widgets_image/category_list.dart';
+import 'theme_provider.dart';
+
 
 class MyGrid extends StatefulWidget {
   const MyGrid({super.key});
@@ -20,6 +24,9 @@ class _MyGridState extends State<MyGrid> {
   List<ProductModel> bestSellingProducts = [];
   List<ProductModel> newestProducts = [];
   List<ProductModel> discountedProducts = [];
+  List<ProductModel> filteredProducts = [];
+  bool isSearching = false;
+
 
   // categories
   List<String> categories = ['Áo', 'Quần', 'Phụ kiện', 'Giày', 'Đồng hồ'];
@@ -29,11 +36,11 @@ class _MyGridState extends State<MyGrid> {
     super.initState();
     lstProduct = createDataList(10);
     categorizeProducts();
+    filteredProducts = lstProduct;
   }
 
   void categorizeProducts() {
     for (var product in lstProduct) {
-      // Dummy categorization logic
       if (product.isBestSeller ?? false) {
         bestSellingProducts.add(product);
       }
@@ -46,27 +53,57 @@ class _MyGridState extends State<MyGrid> {
     }
   }
 
+  void updateSearch(String query) {
+    setState(() {
+      filteredProducts = lstProduct
+          .where((product) =>
+              product.name!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("FortDenim"),
+        title: isSearching
+            ? TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search products...',
+                  border: InputBorder.none,
+                ),
+                onChanged: updateSearch,
+              )
+            : const 
+            Text("FortDenim",style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: Icon(isSearching ? Icons.close : Icons.search),
             onPressed: () {
-              // Xử lý sự kiện khi nhấn vào biểu tượng tìm kiếm ở đây
+              setState(() {
+                isSearching = !isSearching;
+                filteredProducts = lstProduct;
+              });
             },
           ),
+          
         ],
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -88,9 +125,7 @@ class _MyGridState extends State<MyGrid> {
             ListTile(
               leading: Icon(Icons.person),
               title: Text('Tài khoản'),
-              onTap: () {
-                // Handle your functionality here
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: Icon(Icons.settings),
@@ -100,10 +135,23 @@ class _MyGridState extends State<MyGrid> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.brightness_6),
+              title: Text('Chế độ sáng/tối'),
+              trailing: Switch(
+                value: themeProvider.isDarkMode,
+                onChanged: (value) {
+                  themeProvider.toggleTheme(value);
+                },
+              ),
+            ),
+            ListTile(
               leading: Icon(Icons.logout),
               title: Text('Đăng xuất'),
               onTap: () {
-                // Handle your functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyStatefull()),
+                );
               },
             ),
           ],
@@ -113,24 +161,33 @@ class _MyGridState extends State<MyGrid> {
         children: [
           BannerWidget(
             images: [
-              Image.asset('assets/images/banner_1.jpg', width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
-              Image.asset('assets/images/banner_2.jpg', width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
+              Image.asset('assets/images/banner_1.jpg',
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height),
+              Image.asset('assets/images/banner_2.jpg',
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height),
             ],
-          ), // Add BannerWidget here
-          CategoryList(categories: categories), // Use the CategoryList widget
+          ),
+          CategoryList(categories: categories ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                buildProductSection("SẢN PHẨM BÁN CHẠY", bestSellingProducts),
-                const SizedBox(height: 16),
-                buildProductSection("SẢN PHẨM MỚI NHẤT", newestProducts),
-                const SizedBox(height: 16),
-                buildProductSection("SẢN PHẨM ĐANG GIẢM GIÁ", discountedProducts),
+                if (!isSearching) ...[
+                  buildProductSection("SẢN PHẨM BÁN CHẠY", bestSellingProducts),
+                  const SizedBox(height: 16),
+                  buildProductSection("SẢN PHẨM MỚI NHẤT", newestProducts),
+                  const SizedBox(height: 16),
+                  buildProductSection("SẢN PHẨM ĐANG GIẢM GIÁ",
+                      discountedProducts),
+                ] else ...[
+                  buildProductSection("KẾT QUẢ TÌM KIẾM", filteredProducts),
+                ],
               ],
             ),
           ),
-          NavBarWidget(), // Add NavBarWidget here
+          NavBarWidget(),
         ],
       ),
     );
@@ -156,7 +213,7 @@ class _MyGridState extends State<MyGrid> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: products.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // set number column
+              crossAxisCount: 2,
               childAspectRatio: 1,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
@@ -164,13 +221,11 @@ class _MyGridState extends State<MyGrid> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  // Điều hướng đến trang chi tiết sản phẩm khi nhấn vào container
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductDetailPage(
-                        product: products[index],
-                      ),
+                      builder: (context) =>
+                          ProductDetailPage(product: products[index]),
                     ),
                   );
                 },
@@ -183,13 +238,12 @@ class _MyGridState extends State<MyGrid> {
     );
   }
 
-  // create subwidget
   Widget itemGridView(ProductModel productModel) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(20), // Thiết lập BorderRadius
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,7 +258,10 @@ class _MyGridState extends State<MyGrid> {
           Text(
             productModel.name ?? '',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            style: const
+            TextStyle(fontSize: 15, 
+            fontWeight: FontWeight.bold,
+            color: Colors.black),
           ),
           Text(
             NumberFormat('Price ###,###,###').format(productModel.price),

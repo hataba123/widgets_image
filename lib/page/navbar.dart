@@ -8,10 +8,13 @@ class NavBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+
+      
+     backgroundColor:   Colors.white ,
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.black,
       showUnselectedLabels: false,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
