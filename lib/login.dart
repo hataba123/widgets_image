@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:widgets_image/page/grid.dart';
-class MyStatefull extends StatefulWidget {
-  const MyStatefull({super.key});
+import 'package:widgets_image/page/home.dart';
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<MyStatefull> createState() => _MyStatefullState();
+  State<Login> createState() => _LoginState();
 }
 
-class _MyStatefullState extends State<MyStatefull> {
+class _LoginState extends State<Login> {
   bool _checkvalue_1 = false;
   bool _checkvalue_2 = false;
   bool _checkvalue_3 = false;
@@ -92,7 +92,7 @@ class _MyStatefullState extends State<MyStatefull> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => MyGrid()),
+                            MaterialPageRoute(builder: (context) => MyHome()),
                           );
                         },
                         child: const Text('Đăng nhập'),

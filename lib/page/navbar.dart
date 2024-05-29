@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_image/favouritelist.dart';
-import 'package:widgets_image/page/grid.dart';
-import 'package:widgets_image/searchpage.dart';
+import 'package:widgets_image/page/home.dart';
+import 'package:widgets_image/cart.dart';
 import 'package:widgets_image/settings.dart';
 
 class NavBarWidget extends StatelessWidget {
@@ -35,7 +35,7 @@ class NavBarWidget extends StatelessWidget {
             // Điều hướng đến trang Home khi nhấn vào mục Home
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyGrid()),
+              MaterialPageRoute(builder: (context) => MyHome()),
             );
             break;
           case 1:

@@ -8,13 +8,13 @@ import 'package:widgets_image/banner.dart';
 import 'navbar.dart';
 import 'package:widgets_image/productdetailpage.dart';
 import 'package:widgets_image/category_list.dart';
-class MyGrid extends StatefulWidget {
-  const MyGrid({super.key});
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
 
   @override
-  State<MyGrid> createState() => _MyGridState();
+  State<MyHome> createState() => _MyHomeState();
 }
-class _MyGridState extends State<MyGrid> {
+class _MyHomeState extends State<MyHome> {
   List<ProductModel> lstProduct = [];
 
   // categories
@@ -30,6 +30,7 @@ class _MyGridState extends State<MyGrid> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("FortDenim"),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: [

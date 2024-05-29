@@ -6,6 +6,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
+        automaticallyImplyLeading: false
       ),
       body: Center(
         child: Text('Cart is Empty'),

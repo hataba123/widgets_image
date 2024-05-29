@@ -5,6 +5,7 @@ class FavoritesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Favorites'),
+        automaticallyImplyLeading: false
       ),
       body: Center(
         child: Text('This is the Favorites Page'),
