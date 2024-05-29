@@ -1,15 +1,14 @@
 import 'package:widgets_image/data/model.dart';
-// create data with amount
 
-createDataList(int amount) {
-  List<ProductModel> lstProduct = [];
-  for (int i= 1; i<= amount; i++) {
-    lstProduct.add(ProductModel(
-      id:i,
-      name:"Quần áo $i",
-      price:(i * 10000000),
-      img:"img_$i.jpg",
-    )); 
-  }
-  return lstProduct;
+List<ProductModel> createDataList(int count) {
+  return List.generate(count, (index) {
+    return ProductModel(
+      img: 'img_${index + 1}.jpg',
+      name: 'Quần áo $index',
+      price: 100000 + index * 5000,
+      isBestSeller: index % 3 == 0,
+      isNew: index % 2 == 0,
+      isDiscounted: index % 4 == 0,
+    );
+  });
 }
