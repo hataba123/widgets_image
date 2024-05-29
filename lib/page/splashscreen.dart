@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:widgets_image/stateful.dart';
+import 'package:widgets_image/page/home.dart';
+
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class SplashScreen extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MyStatefull(), // Chuyển đến màn hình chính sau khi hoàn thành thời gian Splash Screen
+          builder: (context) => MyHome(), // Chuyển đến màn hình chính sau khi hoàn thành thời gian Splash Screen
         ),
       );
     });

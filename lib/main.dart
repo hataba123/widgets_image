@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_image/login.dart';
+import 'package:widgets_image/page/splashscreen.dart';
 import'page/list.dart';
 import 'page/home.dart';
 import 'page/carousel.dart';

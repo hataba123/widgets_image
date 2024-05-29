@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/model.dart';
-import 'package:widgets_image/stateful.dart';
 import '../data/data.dart';
 import '../config/const.dart';
 import 'package:widgets_image/banner.dart';
@@ -12,14 +11,14 @@ import 'package:widgets_image/category_list.dart';
 import 'theme_provider.dart';
 
 
-class MyGrid extends StatefulWidget {
-  const MyGrid({super.key});
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
 
   @override
   State<MyHome> createState() => _MyHomeState();
 }
 
-class _MyGridState extends State<MyGrid> {
+class _MyHomeState extends State<MyHome> {
   List<ProductModel> lstProduct = [];
   List<ProductModel> bestSellingProducts = [];
   List<ProductModel> newestProducts = [];
@@ -150,7 +149,7 @@ class _MyGridState extends State<MyGrid> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyStatefull()),
+                  MaterialPageRoute(builder: (context) => MyHome()),
                 );
               },
             ),
