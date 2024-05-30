@@ -158,7 +158,7 @@ class _MyHomeState extends State<MyHome> {
       ),
       body: Column(
         children: [
-          CategoryList(categories: categories), // Use the CategoryList widget
+          // Use the CategoryList widget
           BannerWidget(
             images: [
               Image.asset('assets/images/banner_1.jpg',
