@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:widgets_image/page/home.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -22,28 +24,32 @@ class _LoginState extends State<Login> {
       appBar: AppBar(title: null,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+       padding: const EdgeInsets.fromLTRB(16, 60, 16, 36),
+      
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
+              crossAxisAlignment: CrossAxisAlignment.center,             
+              children: [ 
+                  Image.asset(
+                    'assets/logos/logoapp.png', // Đường dẫn của hình ảnh
+                    width: 200, // Độ rộng của hình ảnh (có thể điều chỉnh)
+                    height: 300, // Độ cao của hình ảnh (có thể điều chỉnh)
+                  ),
+                              const SizedBox(
+                  height: 34,
+                ),
+                Container(                  
                   alignment: Alignment.center,
                   child: const Text(
-                    'Đăng nhập',
+                    'ĐĂNG NHẬP',
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 35,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red),
+                      color: Colors.blueAccent),
                 ),
                 ),
-                TextFormField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(
-                    labelText: "Họ và tên",
-                  ),
-                ),
+               
                 const SizedBox(height:16),
                 TextFormField(
                   controller: _emailController,
@@ -59,17 +65,27 @@ class _LoginState extends State<Login> {
                     labelText: "Mật khẩu",
                   ),
                 ),const SizedBox(height:16),
-                TextFormField(
-                  controller: _confirmpassController,
-                  obscureText: true,                 
-                  decoration: const InputDecoration(
-                    labelText: "Xác nhận mật khẩu",
-                  ),
-                ),
+                
                 const SizedBox(height:16),
+
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                     Expanded(
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>MyHome()),
+                          );
+                        },
+                        child: const Text('Đăng nhập'),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
                     Expanded(child: ElevatedButton(
                       onPressed: (){
                         var fullName = _nameController.text;
@@ -81,23 +97,11 @@ class _LoginState extends State<Login> {
                         },
                         );
                       },
-                      child: const Text("Đăng xuất"),
+                      child: const Text("Đăng ký"),
                     ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MyHome()),
-                          );
-                        },
-                        child: const Text('Đăng nhập'),
-                      ),
-                    ),
+                    
+                   
                   ],
                 )
               ],
