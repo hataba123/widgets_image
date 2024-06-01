@@ -9,7 +9,7 @@ import 'navbar.dart';
 import 'package:widgets_image/productdetailpage.dart';
 import 'package:widgets_image/category_list.dart';
 import 'theme_provider.dart';
-
+import 'package:widgets_image/constants/color.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -82,7 +82,7 @@ class _MyHomeState extends State<MyHome> {
                 onChanged: updateSearch,
               )
             : const 
-            Text("FortDenim",style: TextStyle(color: Colors.black)),
+            Text("FortDenim",style: TextStyle(color: TColors.buttonprimary)),
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: [
