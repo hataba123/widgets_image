@@ -21,10 +21,8 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: null,
-      ),
       body: Padding(
-       padding: const EdgeInsets.fromLTRB(16, 60, 16, 36),
+       padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
       
         child: Center(
           child: SingleChildScrollView(
@@ -34,9 +32,9 @@ class _LoginState extends State<Login> {
                   Image.asset(
                     'assets/logos/logoapp.png', // Đường dẫn của hình ảnh
                     width: 200, // Độ rộng của hình ảnh (có thể điều chỉnh)
-                    height: 300, // Độ cao của hình ảnh (có thể điều chỉnh)
+                    height: 200, // Độ cao của hình ảnh (có thể điều chỉnh)
                   ),
-                              const SizedBox(
+                  const SizedBox(
                   height: 34,
                 ),
                 Container(                  
