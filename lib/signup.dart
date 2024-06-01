@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_image/login.dart';
 
 import 'package:widgets_image/page/home.dart';
-import 'package:widgets_image/signup.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {  
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();  
+  final _passwordController = TextEditingController();
+  final _confirmpassController = TextEditingController();
+  final _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,19 +38,32 @@ class _LoginState extends State<Login> {
                 Container(                  
                   alignment: Alignment.center,
                   child: const Text(
-                    'ĐĂNG NHẬP',
+                    'ĐĂNG KÝ',
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueAccent),
                 ),
                 ),
-               
+                const SizedBox(height:16),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    labelText: "Họ và tên",
+                  ),
+                ),
                 const SizedBox(height:16),
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: "Email",
+                  ),
+                ),                
+                const SizedBox(height:16),
+                TextFormField(
+                  controller: _phoneController,
+                  decoration: const InputDecoration(
+                    labelText: "Số điện thoại",
                   ),
                 ),
                 const SizedBox(height:16),
@@ -59,6 +75,14 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const SizedBox(height:16),
+                TextFormField(
+                  controller: _confirmpassController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: "Xác nhận mật khẩu",
+                  ),
+                ),                
+                const SizedBox(height:16),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -67,10 +91,10 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => MyHome()),
+                            MaterialPageRoute(builder: (context) => Login()),
                           );
                         },
-                        child: const Text('Đăng nhập'),
+                        child: const Text('Trở lại trang Đăng nhập'),
                       ),
                     ),
                     const SizedBox(
@@ -85,7 +109,7 @@ class _LoginState extends State<Login> {
                         },
                       child: const Text("Đăng ký"),
                     ),
-                    ),  
+                    ),                   
                   ],
                 )
               ],
