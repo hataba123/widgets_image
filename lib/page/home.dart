@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/login.dart';
 import '../data/data.dart';
 import '../config/const.dart';
 import 'package:widgets_image/banner.dart';
@@ -149,7 +150,7 @@ class _MyHomeState extends State<MyHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHome()),
+                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
             ),

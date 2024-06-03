@@ -1,27 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_image/components/product_titles.dart';
+import 'package:widgets_image/constant.dart';
 import 'package:widgets_image/data/model.dart';
+import 'components/color_and_size.dart';
+import 'components/fav_button.dart';
+import 'components/description.dart';
+import 'components/add_to_cart.dart';
+import 'components/product_titles.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductModel product;
   const ProductDetailPage({required this.product, Key? key}) : super(key: key);
 
- @override
+  @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.blueAccent,
       appBar: AppBar(
-        title: Text(product.name ?? ''),
+    
+        elevation: 0,
+       
+        actions: <Widget>[
+         
+          SizedBox(width: kDefaultPaddin / 2)
+        ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset(
-              'assets/images/${product.img}', // Đường dẫn của hình ảnh
-              width: MediaQuery.of(context).size.width, // Đặt kích thước của hình ảnh
-              height: 400,
-            ),
-            SizedBox(height: 20), // Khoảng cách giữa ảnh và văn bản
-            Text('Áo thể thao mát lạnh'),
+          children: <Widget>[
+            SizedBox(
+              height: size.height,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(top: size.height * 0.3),
+                    padding: EdgeInsets.only(
+                      top: size.height * 0.12,
+                      left: kDefaultPaddin,
+                      right: kDefaultPaddin,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        ColorAndSize(product: product),
+                        SizedBox(height: kDefaultPaddin / 2),
+                        Description(product: product),
+                        SizedBox(height: kDefaultPaddin / 2),
+                        CounterWithFavBtn(),
+                        SizedBox(height: kDefaultPaddin / 2),
+                        AddToCart(product: product)
+                      ],
+                    ),
+                  ),
+                  ProductTitleWithImage(product: product)
+                ],
+              ),
+            )
           ],
         ),
       ),
