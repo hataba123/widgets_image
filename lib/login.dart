@@ -62,10 +62,6 @@ static Color _selectedColor = Colors.green;
     });
   }
 
-
-
-
-
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 

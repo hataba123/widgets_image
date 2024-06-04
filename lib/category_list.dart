@@ -23,8 +23,12 @@ class CategoryList extends StatelessWidget {
                     margin: EdgeInsets.only(right: 10),
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
-                      color: Colors.lightBlueAccent[100],
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+        color: Colors.orange,  // Change this to your desired border color
+        width: 4.0,         // Change this to your desired border width
+      ),
                     ),
                     child: Center(
                       child: Text(
