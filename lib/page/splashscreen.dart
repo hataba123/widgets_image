@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:widgets_image/login.dart';
+import 'package:animated_background/animated_background.dart';
 
-
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
     // Dùng Future.delayed để hiển thị Splash Screen trong 3 giây trước khi chuyển đến màn hình chính
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -14,12 +21,35 @@ class SplashScreen extends StatelessWidget {
         ),
       );
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue, // Màu nền của Splash Screen
       body: Stack(
         fit: StackFit.expand,
         children: [
+          AnimatedBackground(
+            behaviour: RandomParticleBehaviour(
+              options: const ParticleOptions(
+                spawnMaxRadius: 50, // raduius of background object
+            spawnMinSpeed: 15, // minimum speed of object moving
+            particleCount: 70, // no of ohjects in background
+            spawnMaxSpeed: 40,
+            spawnOpacity: 0.3,
+            baseColor: Colors.amber,
+                image: Image(image: AssetImage("assets/logos/logoapp.png")),
+              ),
+            ),
+            vsync: this,
+            child: Container(),
+          ),
+         
+
+
+
+
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,6 +61,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               ],
             ),
+
           ),
           Positioned(
             left: 0,

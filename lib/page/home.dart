@@ -203,7 +203,7 @@ class _MyHomeState extends State<MyHome> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.blue,
+            color: TColors.info,
           ),
         ),
         const SizedBox(height: 8),

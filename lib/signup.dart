@@ -19,6 +19,15 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
+
+
+
+
+
+
+      
       body: Padding(
        padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
       
