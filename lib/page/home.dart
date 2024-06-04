@@ -83,9 +83,9 @@ class _MyHomeState extends State<MyHome> {
                 onChanged: updateSearch,
               )
             : const 
-            Text("FortDenim",style: TextStyle(color: TColors.buttonprimary)),
+            Text("FortDenim",style: TextStyle(color: Colors.white)),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue[700],
         actions: [
           IconButton(
             icon: Icon(isSearching ? Icons.close : Icons.search),
@@ -157,9 +157,12 @@ class _MyHomeState extends State<MyHome> {
           ],
         ),
       ),
+ backgroundColor: Colors.lightBlue[100],
+
       body: Column(
         children: [
           // Use the CategoryList widget
+          
           BannerWidget(
             images: [
               Image.asset('assets/images/banner_1.jpg',
@@ -197,7 +200,9 @@ class _MyHomeState extends State<MyHome> {
   Widget buildProductSection(String title, List<ProductModel> products) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      
       children: [
+       
         Text(
           title,
           style: const TextStyle(
@@ -209,7 +214,9 @@ class _MyHomeState extends State<MyHome> {
         const SizedBox(height: 8),
         Container(
           alignment: Alignment.center,
+         
           child: GridView.builder(
+            
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: products.length,
