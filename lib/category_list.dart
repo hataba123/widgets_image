@@ -23,7 +23,7 @@ class CategoryList extends StatelessWidget {
                     margin: EdgeInsets.only(right: 10),
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
+                      color: Colors.lightBlueAccent[100],
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
@@ -32,6 +32,7 @@ class CategoryList extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
                     ),
