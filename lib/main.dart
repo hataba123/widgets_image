@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/page/splashscreen.dart';
 import 'package:widgets_image/page/theme_provider.dart';
-
+import 'package:widgets_image/page/login.dart';
 
 void main() {
   runApp(
