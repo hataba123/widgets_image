@@ -150,7 +150,7 @@ class _MyHomeState extends State<MyHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Login()),
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
               },
             ),

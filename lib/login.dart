@@ -1,182 +1,214 @@
 import 'package:flutter/material.dart';
-import 'package:animated_background/animated_background.dart';
+import 'package:flutter/widgets.dart';
+import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/page/home.dart';
-import 'package:widgets_image/signup.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
+class _LoginScreenState extends State<LoginScreen> {
+  bool dark = true;
 
-
-
-
-
-
-
-class _LoginState extends State<Login> with TickerProviderStateMixin {
-
-static Color _selectedColor = Colors.green;
-  static Color _unSelectedColor = Colors.red;
-
-  Color _emailTFColor = _unSelectedColor;
-  Color _passwordColor = _unSelectedColor;
-
-  FocusNode _emailTFFocusNode = FocusNode();
-  FocusNode _passwordTFFocusNode = FocusNode();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _emailTFFocusNode.addListener(_onEmailTFFocusChange);
-    _passwordTFFocusNode.addListener(_onPasswordTFFocusChange);
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _emailTFFocusNode.removeListener(_onEmailTFFocusChange);
-    _emailTFFocusNode.dispose();
-    _passwordTFFocusNode.removeListener(_onPasswordTFFocusChange);
-    _passwordTFFocusNode.dispose();
-  }
-
-  void _onEmailTFFocusChange() {
+  void _toggleTheme() {
     setState(() {
-      _emailTFFocusNode.hasFocus
-          ? _emailTFColor = _selectedColor
-          : _emailTFColor = _unSelectedColor;
+      dark = !dark;
     });
   }
-
-  void _onPasswordTFFocusChange() {
-    setState(() {
-      _passwordTFFocusNode.hasFocus
-          ? _passwordColor = _selectedColor
-          : _passwordColor = _unSelectedColor;
-    });
-  }
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-       
+      backgroundColor: dark ? TColors.black : Colors.lightBlue[100],
+      
       body: Stack(
-        fit: StackFit.expand,
         children: [
-          AnimatedBackground(
-            behaviour: RandomParticleBehaviour(
-              options: const ParticleOptions(
-                spawnMinSpeed: 15, // minimum speed of object moving
-            particleCount: 70, // no of ohjects in background
-            spawnMaxSpeed: 40,
-            spawnOpacity: 0.3,
-            spawnMaxRadius: 40,
-            baseColor: Colors.amber,
-                image: Image(image: AssetImage("assets/logos/logoapp.png")),
-              ),
-            ),
-            vsync: this,
-            child: Container(),
+              
+      SingleChildScrollView(
+        
+        child: Padding(
+          
+          padding: const EdgeInsets.only(
+            top: 56.0,
+            left: 24.0,
+            bottom: 24.0,
+            right: 24.0,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/logos/logoapp.png', // Đường dẫn của hình ảnh
-                      width: 200, // Độ rộng của hình ảnh (có thể điều chỉnh)
-                      height: 200, // Độ cao của hình ảnh (có thể điều chỉnh)
+          
+          child: Column(
+            
+            children: [
+               Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(Icons.wb_sunny, color: dark ? Colors.white : Colors.black),
+              onPressed: _toggleTheme,
+            ),
+          ),
+              // Logo, Title and sub title
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+          
+
+                  const Center(
+                    child: Image(
+                      height: 150,
+                      image: AssetImage('assets/logos/logoapp.png'),
                     ),
-                    const SizedBox(height: 34),
-                    Container(
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'ĐĂNG NHẬP',
-                        style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueAccent,
+                  ),
+                  Text(
+                    "CHÀO MỪNG BẠN",
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          color: dark ? Colors.white : TColors.dark,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    "Vô số mặt hàng và khuyến mãi đang đợi chờ bạn ",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: dark ? Colors.white : TColors.dark,
+                        ),
+                  ),
+                ],
+              ),
 
-
-                    
-                    TextFormField(
-                      
-                      controller: _emailController,
-                      focusNode: _emailTFFocusNode,
-                      decoration:  InputDecoration(
-                       labelStyle: TextStyle(color: _emailTFColor),
-                      
-                        labelText: "Email",
-                      ),
-                    ),
-
-
-
-
-
-
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: true,
-                       focusNode: _passwordTFFocusNode,
-                      decoration:  InputDecoration(
-                         labelStyle: TextStyle(color:_passwordColor),
-                        labelText: "Mật khẩu",
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MyHome()),
-                              );
-                            },
-                            child: const Text('Đăng nhập'),
+              // Form
+              Form(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        style: TextStyle(color: dark ? Colors.white : Colors.black),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email, color: dark ? Colors.white : Colors.black),
+                          labelText: "Email",
+                          labelStyle: TextStyle(color: dark ? Colors.white : Colors.black),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                            borderSide: BorderSide(
+                              color: TColors.info,
+                              width: 3.0,
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => SignUp()),
-                              );
-                            },
-                            child: const Text("Đăng ký"),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Password
+                      TextFormField(
+                        style: TextStyle(color: dark ? Colors.white : Colors.black),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.lock, color: dark ? Colors.white : Colors.black),
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: dark ? Colors.white : Colors.black),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                            borderSide: BorderSide(
+                              color: TColors.info,
+                              width: 3.0,
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(height: 8.0),
+
+                      // Remember me & Forgot password
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Remember me
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: true,
+                                onChanged: (value) {},
+                                checkColor: dark ? TColors.black : Colors.white,
+                                activeColor: dark ? Colors.white : Colors.black,
+                              ),
+                              Text(
+                                "Lưu mật khẩu của tôi",
+                                style: TextStyle(color: dark ? Colors.white : Colors.black),
+                              ),
+                            ],
+                          ),
+
+                          // Forgot password
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Quên password",
+                              style: TextStyle(color: dark ? Colors.white : Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 32.0),
+
+                      // Sign in button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>MyHome()),
+                          );
+                        },
+                          child: const Text("Đăng nhập"),
+                          style: ElevatedButton.styleFrom(
+                           backgroundColor: dark ? Colors.grey[400] : TColors.white,
+                           foregroundColor: dark ? Colors.white : Colors.black
+                           
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+
+                      // Create account button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text("Tạo tài khoản"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: dark ? Colors.grey[400] : TColors.white,
+                            foregroundColor: dark ? Colors.white : Colors.black
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32.0),
+                    ],
+                  ),
                 ),
               ),
-            ),
+              // Toggle theme button
+             
+  
+              // Divider
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: dark ? TColors.darkergrey : TColors.grey,
+                      thickness: 0.5,
+                      indent: 60,
+                      endIndent: 5,
+                    ),
+                  ),
+                ],
+              ),    
+                
+            ],
           ),
-        ],
+        ),
+      ),
+        ],     
       ),
     );
   }

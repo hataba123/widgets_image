@@ -100,7 +100,7 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Login()),
+                            MaterialPageRoute(builder: (context) => LoginScreen()),
                           );
                         },
                         child: const Text('Trở lại trang Đăng nhập'),

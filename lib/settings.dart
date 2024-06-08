@@ -61,7 +61,7 @@ class SettingsPage extends StatelessWidget {
                 // Add navigation to cart page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Login()),    
+                  MaterialPageRoute(builder: (context) => LoginScreen()),    
                 );       
               },
              ), 
