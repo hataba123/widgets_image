@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Login(), // Chuyển đến màn hình chính sau khi hoàn thành thời gian Splash Screen
+          builder: (context) => LoginScreen(), // Chuyển đến màn hình chính sau khi hoàn thành thời gian Splash Screen
         ),
       );
     });
