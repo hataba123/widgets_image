@@ -1,16 +1,18 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/model.dart';
 import 'package:widgets_image/login.dart';
+import 'package:widgets_image/settings.dart';
 import '../data/data.dart';
 import '../config/const.dart';
 import 'package:widgets_image/banner.dart';
 import 'navbar.dart';
 import 'package:widgets_image/productdetailpage.dart';
-import 'package:widgets_image/category_list.dart';
 import 'theme_provider.dart';
 import 'package:widgets_image/constants/color.dart';
+import 'package:widgets_image/category_list.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -27,9 +29,13 @@ class _MyHomeState extends State<MyHome> {
   List<ProductModel> filteredProducts = [];
   bool isSearching = false;
 
-
   // categories
-  List<String> categories = ['Áo', 'Quần', 'Phụ kiện', 'Giày', 'Đồng hồ'];
+  List<String> categories = [];
+  String? selectedCategory;
+  String? selectedSortOrder;
+
+  List<dynamic>? jsonList; // Sử dụng kiểu dữ liệu nullable
+  final String baseUrl = 'http://10.0.2.2:4000/';
 
   @override
   void initState() {
@@ -37,6 +43,8 @@ class _MyHomeState extends State<MyHome> {
     lstProduct = createDataList(10);
     categorizeProducts();
     filteredProducts = lstProduct;
+    fetchCategories();
+    getData();
   }
 
   void categorizeProducts() {
@@ -62,11 +70,44 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
+  void fetchCategories() async {
+    try {
+      var response = await Dio().get('http://10.0.2.2:4000/api/v1/product/categories');
+      if (response.statusCode == 200) {
+        setState(() {
+          categories = List<String>.from(response.data["categories"]);
+        });
+      } else {
+        print('Failed to load categories');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
+  void getData() async {
+    try {
+      Map<String, dynamic> queryParameters = {
+        if (selectedCategory != null) 'category': selectedCategory,
+        if (selectedSortOrder != null) 'sort': selectedSortOrder,
+      };
 
+      var response = await Dio().get(
+        'http://10.0.2.2:4000/api/v1/product/all',
+        queryParameters: queryParameters,
+      );
 
-
-
+      if (response.statusCode == 200) {
+        setState(() {
+          jsonList = response.data["products"] as List;
+        });
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +123,7 @@ class _MyHomeState extends State<MyHome> {
                 ),
                 onChanged: updateSearch,
               )
-            : const 
-            Text("FortDenim",style: TextStyle(color: Colors.white)),
+            : const Text("FortDenim", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.blue[700],
         actions: [
@@ -96,7 +136,6 @@ class _MyHomeState extends State<MyHome> {
               });
             },
           ),
-          
         ],
       ),
       drawer: Drawer(
@@ -123,15 +162,13 @@ class _MyHomeState extends State<MyHome> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Tài khoản'),
-              onTap: () {},
-            ),
-            ListTile(
               leading: Icon(Icons.settings),
               title: Text('Cài đặt'),
               onTap: () {
-                // Handle your functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
               },
             ),
             ListTile(
@@ -157,12 +194,9 @@ class _MyHomeState extends State<MyHome> {
           ],
         ),
       ),
- backgroundColor: Colors.lightBlue[100],
-
+      backgroundColor: Colors.lightBlue[100],
       body: Column(
         children: [
-          // Use the CategoryList widget
-          
           BannerWidget(
             images: [
               Image.asset('assets/images/banner_1.jpg',
@@ -173,7 +207,43 @@ class _MyHomeState extends State<MyHome> {
                   height: MediaQuery.of(context).size.height),
             ],
           ),
-          CategoryList(categories: categories ),
+          if (categories.isNotEmpty) CategoryList(categories: categories),
+          DropdownButton<String>(
+            hint: Text("Chọn danh mục"),
+            value: selectedCategory,
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedCategory = newValue;
+                getData();
+              });
+            },
+            items: categories.map<DropdownMenuItem<String>>((String category) {
+              return DropdownMenuItem<String>(
+                value: category,
+                child: Text(category),
+              );
+            }).toList(),
+          ),
+          DropdownButton<String>(
+            hint: Text("Sắp xếp theo giá"),
+            value: selectedSortOrder,
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedSortOrder = newValue;
+                getData();
+              });
+            },
+            items: [
+              DropdownMenuItem<String>(
+                value: 'asc',
+                child: Text('Giá tăng dần'),
+              ),
+              DropdownMenuItem<String>(
+                value: 'desc',
+                child: Text('Giá giảm dần'),
+              ),
+            ],
+          ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(16),
@@ -183,8 +253,8 @@ class _MyHomeState extends State<MyHome> {
                   const SizedBox(height: 16),
                   buildProductSection("SẢN PHẨM MỚI NHẤT", newestProducts),
                   const SizedBox(height: 16),
-                  buildProductSection("SẢN PHẨM ĐANG GIẢM GIÁ",
-                      discountedProducts),
+                  buildProductSection(
+                      "SẢN PHẨM ĐANG GIẢM GIÁ", discountedProducts),
                 ] else ...[
                   buildProductSection("KẾT QUẢ TÌM KIẾM", filteredProducts),
                 ],
@@ -200,9 +270,7 @@ class _MyHomeState extends State<MyHome> {
   Widget buildProductSection(String title, List<ProductModel> products) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      
       children: [
-       
         Text(
           title,
           style: const TextStyle(
@@ -214,9 +282,7 @@ class _MyHomeState extends State<MyHome> {
         const SizedBox(height: 8),
         Container(
           alignment: Alignment.center,
-         
           child: GridView.builder(
-            
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: products.length,
@@ -227,18 +293,39 @@ class _MyHomeState extends State<MyHome> {
               mainAxisSpacing: 8,
             ),
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ProductDetailPage(product: products[index]),
+              // Kiểm tra nếu jsonList không bị null
+              if (jsonList != null && jsonList!.isNotEmpty) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailPage(product: products[index]),
+                      ),
+                    );
+                  },
+                  child: itemGridView(index, jsonList!, baseUrl),
+                );
+              } else {
+                return Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'No data available',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                  );
-                },
-                child: itemGridView(products[index]),
-              );
+                  ),
+                );
+              }
             },
           ),
         ),
@@ -246,36 +333,82 @@ class _MyHomeState extends State<MyHome> {
     );
   }
 
-  Widget itemGridView(ProductModel productModel) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            url_img + productModel.img!,
-            height: 78,
-            width: 78,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.image),
+  Widget itemGridView(int index, List<dynamic> jsonList, String baseUrl) {
+    // Kiểm tra nếu jsonList là null hoặc không chứa phần tử tại chỉ số yêu cầu
+    if (jsonList == null || index >= jsonList.length || jsonList[index] == null) {
+      return Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: Text(
+            'No data available',
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
-          Text(
-            productModel.name ?? '',
-            textAlign: TextAlign.center,
-            style: const
-            TextStyle(fontSize: 15, 
-            fontWeight: FontWeight.bold,
-            color: Colors.black),
+        ),
+      );
+    }
+
+    // Tạo đối tượng ProductModel từ jsonList
+    ProductModel product = ProductModel(
+      id: jsonList[index]['id'],
+      name: jsonList[index]['name'],
+      price: jsonList[index]['price'],
+      img: jsonList[index]['photo'],
+      category: jsonList[index]['category']
+  
+      // Các thuộc tính khác nếu có
+    );
+
+    String imageUrl = baseUrl + jsonList[index]['photo'];
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(product: product),
           ),
-          Text(
-            NumberFormat('Price ###,###,###').format(productModel.price),
-            style: const TextStyle(fontSize: 15, color: Colors.red),
-          ),
-        ],
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              product.name ?? 'No name',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              NumberFormat('###,###,###').format(product.price) + ' VND',
+              style: const TextStyle(fontSize: 15, color: Colors.red),
+            ),
+          ],
+        ),
       ),
     );
   }
