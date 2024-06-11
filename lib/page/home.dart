@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_image/cart.dart';
+import 'package:widgets_image/data/cart_model.dart';
 import 'package:widgets_image/data/model.dart';
 import 'package:widgets_image/login.dart';
 import 'package:widgets_image/settings.dart';
@@ -191,6 +193,17 @@ class _MyHomeState extends State<MyHome> {
                 );
               },
             ),
+            ListTile(
+  leading: Icon(Icons.shopping_cart),
+  title: Text('Giỏ hàng'),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CartPage()),
+    );
+  },
+),
+
           ],
         ),
       ),
@@ -407,6 +420,19 @@ class _MyHomeState extends State<MyHome> {
               NumberFormat('###,###,###').format(product.price) + ' VND',
               style: const TextStyle(fontSize: 15, color: Colors.red),
             ),
+ IconButton(
+            icon: Icon(Icons.add_shopping_cart),
+            onPressed: () {
+              Provider.of<CartModel>(context, listen: false).addItem(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Sản phẩm đã được thêm vào giỏ hàng!'),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+          ),
+            
           ],
         ),
       ),
