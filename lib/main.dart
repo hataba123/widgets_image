@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_image/data/cart_model.dart';
 import 'package:widgets_image/page/splashscreen.dart';
 import 'package:widgets_image/page/theme_provider.dart';
 
-
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => CartModel()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
-      title: 'FortDemin',
+      title: 'FortDenim',
       themeMode: themeProvider.themeMode,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -30,8 +33,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark
       ),
-   
-      home:  SplashScreen()
+      home: SplashScreen(),
     );
   }
 }

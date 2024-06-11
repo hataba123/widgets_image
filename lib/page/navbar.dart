@@ -58,7 +58,7 @@ class NavBarWidget extends StatelessWidget {
             // Điều hướng đến trang Favorites khi nhấn vào mục Favorites
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SearchPage()),
+              MaterialPageRoute(builder: (context) => CartPage()),
             );
             break;
           case 3:
