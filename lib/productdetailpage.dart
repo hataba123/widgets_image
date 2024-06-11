@@ -6,7 +6,7 @@ import 'components/color_and_size.dart';
 import 'components/fav_button.dart';
 import 'components/description.dart';
 import 'components/add_to_cart.dart';
-import 'components/product_titles.dart';
+import '../constant.dart'; // Thêm import này để lấy `baseUrl`
 
 class ProductDetailPage extends StatelessWidget {
   final ProductModel product;
@@ -15,14 +15,13 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final String baseUrl = 'http://10.0.2.2:4000/'; // Đảm bảo rằng `baseUrl` được khai báo chính xác
+
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       appBar: AppBar(
-    
         elevation: 0,
-       
         actions: <Widget>[
-         
           SizedBox(width: kDefaultPaddin / 2)
         ],
       ),
@@ -59,7 +58,7 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ProductTitleWithImage(product: product)
+                  ProductTitleWithImage(product: product, baseUrl: baseUrl)
                 ],
               ),
             )
