@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Thêm import này nếu chưa có
 import 'package:widgets_image/login.dart';
+import 'package:widgets_image/myorder.dart';
+import 'package:widgets_image/orderpage.dart';
 import 'package:widgets_image/page/home.dart';
-import 'package:widgets_image/page/home.dart';
-import 'package:widgets_image/edit_profile.dart';  // Import trang EditProfilePage
-
+import 'package:widgets_image/edit_profile.dart'; // Import trang EditProfilePage
+import 'package:widgets_image/data/cart_model.dart'; // Thêm import này nếu chưa có
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -19,7 +21,7 @@ class SettingsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20), // Add some space between the text and the icon
-             Align(
+            Align(
               alignment: Alignment.center,
               child: IconButton(
                 icon: Icon(Icons.account_circle),
@@ -30,10 +32,11 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20), // Add space between icon and account section
-            Text('Tài khoản',
+            Text(
+              'Tài khoản',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // Style for section title
             ),
-             Divider(
+            Divider(
               color: Colors.black, // Color of the underline
               thickness: 1, // Thickness of the underline
             ),
@@ -41,30 +44,34 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.edit),
               title: Text('Chỉnh sửa thông tin'),
               onTap: () {
-                 Navigator.push(
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EditProfilePage()),    
-                );       
+                  MaterialPageRoute(builder: (context) => EditProfilePage()),
+                );
               },
             ),
             ListTile(
               leading: Icon(Icons.shopping_cart),
-              title: Text('Giỏ Hàng'),
+              title: Text('Đơn hàng của tôi'),
               onTap: () {
-                // Add navigation to cart page
+                // Lấy CartModel từ Provider và truyền vào OrderPage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyOrdersPage(orderId: '',)),
+                );
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.account_box),
               title: Text('Đăng xuất'),
               onTap: () {
                 // Add navigation to cart page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),    
-                );       
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
-             ), 
+            ),
           ],
         ),
       ),

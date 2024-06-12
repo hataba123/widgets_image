@@ -6,7 +6,8 @@ import 'components/color_and_size.dart';
 import 'components/fav_button.dart';
 import 'components/description.dart';
 import 'components/add_to_cart.dart';
-import '../constant.dart'; // Thêm import này để lấy `baseUrl`
+import '../constant.dart'; 
+import 'theme_provider.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductModel product;
