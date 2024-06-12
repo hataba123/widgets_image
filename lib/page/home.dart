@@ -211,12 +211,10 @@ class _MyHomeState extends State<MyHome> {
         children: [
           BannerWidget(
             images: [
-              Image.asset('assets/images/banner_1.jpg',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height),
-              Image.asset('assets/images/banner_2.jpg',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height),
+              ('assets/images/banner_1.jpg'),
+                
+             ('assets/images/banner_2.jpg'),
+                  
             ],
           ),
           if (categories.isNotEmpty) CategoryList(categories: categories),
