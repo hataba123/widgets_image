@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets_image/data/model.dart';
+import 'model.dart';
 
 class CartItem {
   final ProductModel product;
@@ -28,6 +28,11 @@ class CartModel with ChangeNotifier {
 
   void removeItem(ProductModel product) {
     _items.removeWhere((item) => item.product.id == product.id);
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _items.clear();
     notifyListeners();
   }
 

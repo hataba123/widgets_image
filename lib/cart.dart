@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/cart_model.dart';
-
+import 'orderpage.dart';
 
 class CartPage extends StatelessWidget {
   @override
@@ -12,12 +12,12 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Giỏ hàng'),
         actions: [
-IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
       body: Consumer<CartModel>(
@@ -26,12 +26,10 @@ IconButton(
             itemCount: cart.items.length,
             itemBuilder: (context, index) {
               var item = cart.items[index];
-              // Kiểm tra nếu img là null, sử dụng một giá trị mặc định
               String imageUrl = baseUrl + (item.product.img ?? 'assets/images/default.png');
 
               return ListTile(
                 leading: Image.network(imageUrl, errorBuilder: (context, error, stackTrace) {
-                  // Sử dụng hình ảnh mặc định nếu có lỗi khi tải hình ảnh từ URL
                   return Image.asset('assets/images/default.png');
                 }),
                 title: Text(item.product.name ?? 'No name'),
@@ -49,9 +47,26 @@ IconButton(
         padding: EdgeInsets.all(16),
         child: Consumer<CartModel>(
           builder: (context, cart, child) {
-            return Text(
-              'Tổng cộng: ${cart.totalPrice} VND',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Tổng cộng: ${cart.totalPrice} VND',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderPage(cart: cart),
+                      ),
+                    );
+                  },
+                  child: Text('Đặt hàng'),
+                ),
+              ],
             );
           },
         ),

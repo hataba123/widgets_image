@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets_image/constant.dart';
+import 'package:widgets_image/data/cart_model.dart';
 import 'package:widgets_image/data/model.dart';
 
 class AddToCart extends StatelessWidget {
   final ProductModel product;
 
   const AddToCart({Key? key, required this.product}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
+    bool hasInformation = product.name != null && product.name!.isNotEmpty;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin),
       child: Row(
@@ -22,8 +25,16 @@ class AddToCart extends StatelessWidget {
              
             ),
             child: IconButton(
-              icon: Icon(Icons.add_shopping_cart),
-              onPressed: () {},
+               icon: Icon(Icons.add_shopping_cart),
+              onPressed: hasInformation ? () {
+                Provider.of<CartModel>(context, listen: false).addItem(product);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Sản phẩm đã được thêm vào giỏ hàng!'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              } : null,
             ),
           ),
          Expanded(

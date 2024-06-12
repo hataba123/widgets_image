@@ -194,16 +194,15 @@ class _MyHomeState extends State<MyHome> {
               },
             ),
             ListTile(
-  leading: Icon(Icons.shopping_cart),
-  title: Text('Giỏ hàng'),
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CartPage()),
-    );
-  },
-),
-
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Giỏ hàng'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartPage()),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -308,18 +307,7 @@ class _MyHomeState extends State<MyHome> {
             itemBuilder: (context, index) {
               // Kiểm tra nếu jsonList không bị null
               if (jsonList != null && jsonList!.isNotEmpty) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ProductDetailPage(product: products[index]),
-                      ),
-                    );
-                  },
-                  child: itemGridView(index, jsonList!, baseUrl),
-                );
+                return itemGridView(index, jsonList!, baseUrl);
               } else {
                 return Container(
                   padding: const EdgeInsets.all(8),
@@ -375,21 +363,23 @@ class _MyHomeState extends State<MyHome> {
       price: jsonList[index]['price'],
       img: jsonList[index]['photo'],
       category: jsonList[index]['category']
-  
       // Các thuộc tính khác nếu có
     );
 
     String imageUrl = baseUrl + jsonList[index]['photo'];
 
+    // Kiểm tra nếu product không có thông tin cụ thể
+    bool hasInformation = product.name != null && product.name!.isNotEmpty;
+
     return GestureDetector(
-      onTap: () {
+      onTap: hasInformation ? () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ProductDetailPage(product: product),
           ),
         );
-      },
+      } : null,
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -420,19 +410,18 @@ class _MyHomeState extends State<MyHome> {
               NumberFormat('###,###,###').format(product.price) + ' VND',
               style: const TextStyle(fontSize: 15, color: Colors.red),
             ),
- IconButton(
-            icon: Icon(Icons.add_shopping_cart),
-            onPressed: () {
-              Provider.of<CartModel>(context, listen: false).addItem(product);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Sản phẩm đã được thêm vào giỏ hàng!'),
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            },
-          ),
-            
+            IconButton(
+              icon: Icon(Icons.add_shopping_cart),
+              onPressed: hasInformation ? () {
+                Provider.of<CartModel>(context, listen: false).addItem(product);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Sản phẩm đã được thêm vào giỏ hàng!'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              } : null,
+            ),
           ],
         ),
       ),
