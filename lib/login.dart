@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgets_image/api/api_service.dart';
 import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/page/home.dart';
-
+import 'package:widgets_image/global.dart' as globals;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -43,7 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
           SnackBar(content: Text(response['error'])),
         );
       } else {
+         globals.loggedInEmail = _emailController.text;
         Navigator.pushReplacement(
+          
           context,
           MaterialPageRoute(builder: (context) => MyHome()),
         );
