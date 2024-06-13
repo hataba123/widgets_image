@@ -15,6 +15,7 @@ import 'package:widgets_image/productdetailpage.dart';
 import 'theme_provider.dart';
 import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/category_list.dart';
+import 'package:widgets_image/global.dart' as globals;
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -144,15 +145,22 @@ class _MyHomeState extends State<MyHome> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
+            UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text(
-                'Menu',
+              accountName: const Text(
+                'User',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
+                ),
+              ),
+              accountEmail: Text(
+                globals.loggedInEmail,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
                 ),
               ),
             ),
