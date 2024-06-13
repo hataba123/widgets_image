@@ -18,6 +18,50 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final ApiService _apiService = ApiService();
   bool _isLoading = false;
+static Color _selectedColor = Colors.green;
+  static Color _unSelectedColor = Colors.amber;
+
+  Color _emailTFColor = _unSelectedColor;
+  Color _passwordColor = _unSelectedColor;
+
+  FocusNode _emailTFFocusNode = FocusNode();
+  FocusNode _passwordTFFocusNode = FocusNode();
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _emailTFFocusNode.addListener(_onEmailTFFocusChange);
+    _passwordTFFocusNode.addListener(_onPasswordTFFocusChange);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailTFFocusNode.removeListener(_onEmailTFFocusChange);
+    _emailTFFocusNode.dispose();
+    _passwordTFFocusNode.removeListener(_onPasswordTFFocusChange);
+    _passwordTFFocusNode.dispose();
+  }
+
+  void _onEmailTFFocusChange() {
+    setState(() {
+      _emailTFFocusNode.hasFocus
+          ? _emailTFColor = _selectedColor
+          : _emailTFColor = _unSelectedColor;
+    });
+  }
+
+  void _onPasswordTFFocusChange() {
+    setState(() {
+      _passwordTFFocusNode.hasFocus
+          ? _passwordColor = _selectedColor
+          : _passwordColor = _unSelectedColor;
+    });
+  }
+
+
 
   void _toggleTheme() {
     setState(() {
@@ -110,13 +154,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextFormField(
                             controller: _emailController,
+                            focusNode: _emailTFFocusNode,
+
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your email';
                               }
                               return null;
                             },
-                            style: TextStyle(color: dark ? Colors.white : Colors.black),
+                            style: TextStyle(color: dark ? Colors.white : Colors.black ),
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.email, color: dark ? Colors.white : Colors.black),
                               labelText: "Email",
@@ -133,6 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 16),
                           TextFormField(
                             controller: _passwordController,
+                              focusNode: _passwordTFFocusNode,
+
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your password';
