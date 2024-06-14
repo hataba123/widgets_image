@@ -6,22 +6,24 @@ import 'orderpage.dart';
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String baseUrl = 'http://10.0.2.2:4000/'; // URL cơ sở cho hình ảnh
+    final String baseUrl = 'http://10.0.2.2:4000/'; // Base URL for images
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Giỏ hàng'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Consumer<CartModel>(
         builder: (context, cart, child) {
+          if (cart.items.isEmpty) {
+            return Center(child: Text('Giỏ hàng của bạn đang trống.'));
+          }
+
           return ListView.builder(
             itemCount: cart.items.length,
             itemBuilder: (context, index) {
@@ -29,9 +31,15 @@ class CartPage extends StatelessWidget {
               String imageUrl = baseUrl + (item.product.img ?? 'assets/images/default.png');
 
               return ListTile(
-                leading: Image.network(imageUrl, errorBuilder: (context, error, stackTrace) {
-                  return Image.asset('assets/images/default.png');
-                }),
+                leading: Image.network(
+                  imageUrl,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/images/default.png', width: 50, height: 50, fit: BoxFit.cover);
+                  },
+                ),
                 title: Text(item.product.name ?? 'No name'),
                 subtitle: Text('Số lượng: ${item.quantity}'),
                 trailing: Text('${item.product.price! * item.quantity} VND'),
@@ -43,11 +51,11 @@ class CartPage extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16),
-        child: Consumer<CartModel>(
-          builder: (context, cart, child) {
-            return Column(
+      bottomNavigationBar: Consumer<CartModel>(
+        builder: (context, cart, child) {
+          return Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
@@ -56,20 +64,22 @@ class CartPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OrderPage(cart: cart),
-                      ),
-                    );
-                  },
+                  onPressed: cart.items.isEmpty
+                      ? null
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderPage(cart: cart),
+                            ),
+                          );
+                        },
                   child: Text('Đặt hàng'),
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

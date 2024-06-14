@@ -158,7 +158,7 @@ class _MyHomeState extends State<MyHome> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blue, Colors.purple],
+              colors: [Colors.lightBlue[100]!, Colors.purple],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
