@@ -56,6 +56,7 @@ class ProductTitleWithImage extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(),
           Text("Danh mục:"),
           Text(
            product.category ?? '' ,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/cart_model.dart';
+import 'package:widgets_image/data/favorite_model.dart';
 import 'package:widgets_image/data/order_model.dart';
 import 'package:widgets_image/page/splashscreen.dart';
 import 'package:widgets_image/page/theme_provider.dart';
@@ -12,6 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => CartModel()),
         ChangeNotifierProvider(create: (_) => OrderModel()),
+     ChangeNotifierProvider(create: (_) => FavoritesModel()),
       ],
       child: const MyApp(),
     ),

@@ -9,6 +9,7 @@ class ProductModel {
   final bool isNew;
   final bool isDiscounted;
   final String? category;
+  bool isFavorite;
 
   ProductModel({
     this.id,
@@ -21,7 +22,9 @@ class ProductModel {
     this.isNew = false,
     this.isDiscounted = false,
     this.category,
+    this.isFavorite = false,
   });
+
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'],
@@ -32,7 +35,8 @@ class ProductModel {
       isBestSeller: json['isBestSeller'],
       isNew: json['isNew'],
       isDiscounted: json['isDiscounted'],
+      isFavorite: json['isFavorite'] ?? false, // Ensure a default value if not present in JSON
     );
   }
-
 }
+
