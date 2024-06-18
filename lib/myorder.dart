@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widgets_image/page/home.dart';
 import '../data/order_model.dart';
+import 'package:widgets_image/page/home.dart';
 
 class MyOrdersPage extends StatefulWidget {
   final String orderId;
@@ -96,6 +96,8 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                       }).toList(),
                       SizedBox(height: 8),
                       Text('Địa chỉ: ${order.address}', style: TextStyle(fontSize: 16)),
+                      SizedBox(height: 8),
+                      Text('Tổng giá: ${order.totalAmount} VND', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),

@@ -463,6 +463,7 @@ class _MyHomeState extends State<MyHome> {
                 Provider.of<CartModel>(context, listen: false).addItem(product);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
+                    backgroundColor: Colors.green,
                     content: Text('Sản phẩm đã được thêm vào giỏ hàng!'),
                     duration: Duration(seconds: 2),
                   ),

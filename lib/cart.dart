@@ -28,9 +28,10 @@ class CartPage extends StatelessWidget {
             itemCount: cart.items.length,
             itemBuilder: (context, index) {
               var item = cart.items[index];
-              String imageUrl = baseUrl + (item.product.img ?? 'assets/images/default.png');
+              String imageUrl = item.product.img != null ? baseUrl + item.product.img! : 'assets/images/default.png';
 
               return ListTile(
+                    key: Key(item.product.id.toString()),
                 leading: Image.network(
                   imageUrl,
                   width: 50,
@@ -59,7 +60,7 @@ class CartPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Tổng cộng: ${cart.totalPrice} VND',
+                  'Tổng cộng: ${cart.totalPrice.toStringAsFixed(2)} VND', // Format totalPrice as needed
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 8),
