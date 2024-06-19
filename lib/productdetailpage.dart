@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets_image/components/product_titles.dart';
 import 'package:widgets_image/constant.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/page/favorites_provider.dart';
 import 'components/color_and_size.dart';
 import 'components/fav_button.dart';
 import 'components/description.dart';
 import 'components/add_to_cart.dart';
-import 'theme_provider.dart';
-import 'dart:ui'; // Import for BackdropFilter and ImageFiltered
+import 'dart:ui';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductModel product;
@@ -17,6 +18,7 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final String baseUrl = 'http://10.0.2.2:4000/';
+    final favoritesProvider = Provider.of<FavoritesProvider>(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -24,6 +26,28 @@ class ProductDetailPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            icon: Icon(
+              product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: Colors.red,
+            ),
+            onPressed: () {
+              favoritesProvider.toggleFavorite(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text(
+                    product.isFavorite
+                        ? 'Đã thêm vào yêu thích'
+                        : 'Đã xóa khỏi yêu thích',
+                  ),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -56,12 +80,10 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Frosted Glass Effect
-                  
                   ProductTitleWithImage(product: product, baseUrl: baseUrl),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

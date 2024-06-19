@@ -5,6 +5,8 @@ import 'package:widgets_image/data/favorite_model.dart';
 import 'package:widgets_image/data/order_model.dart';
 import 'package:widgets_image/page/splashscreen.dart';
 import 'package:widgets_image/page/theme_provider.dart';
+import 'package:widgets_image/page/favorites_provider.dart';
+
 
 void main() {
   runApp(
@@ -13,7 +15,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => CartModel()),
         ChangeNotifierProvider(create: (_) => OrderModel()),
-     ChangeNotifierProvider(create: (_) => FavoritesModel()),
+     ChangeNotifierProvider(create: (_) => FavoritesProvider()),
       ],
       child: const MyApp(),
     ),

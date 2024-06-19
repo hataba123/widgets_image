@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets_image/favouritelist.dart';
+import 'package:widgets_image/page/favorites_provider.dart';
 import 'package:widgets_image/page/home.dart';
 import 'package:widgets_image/cart.dart';
 import 'package:widgets_image/settings.dart';
@@ -49,10 +51,16 @@ class NavBarWidget extends StatelessWidget {
             break;
           case 1:
             // Điều hướng đến trang Search khi nhấn vào mục Search
+                        final favoritesProvider =
+                Provider.of<FavoritesProvider>(context, listen: false);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FavoritesPage()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    FavoritesPage(favoriteProducts: favoritesProvider.favoriteProducts),
+              ),
             );
+
             break;
           case 2:
             // Điều hướng đến trang Favorites khi nhấn vào mục Favorites
