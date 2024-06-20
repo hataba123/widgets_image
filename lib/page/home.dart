@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:widgets_image/cart.dart';
 import 'package:widgets_image/data/cart_model.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/favouritelist.dart';
 import 'package:widgets_image/login.dart';
 import 'package:widgets_image/settings.dart';
 import '../data/data.dart';
@@ -30,6 +31,7 @@ class _MyHomeState extends State<MyHome> {
   List<ProductModel> newestProducts = [];
   List<ProductModel> discountedProducts = [];
   List<ProductModel> filteredProducts = [];
+  List<ProductModel> favoriteProducts = [];
   bool isSearching = false;
 
   // categories
@@ -48,6 +50,7 @@ class _MyHomeState extends State<MyHome> {
     filteredProducts = lstProduct;
     fetchCategories();
     getData();
+    favoriteProducts = lstProduct.where((product) => product.isFavorite).toList();
   }
 
   void categorizeProducts() {
@@ -60,6 +63,9 @@ class _MyHomeState extends State<MyHome> {
       }
       if (product.isDiscounted ?? false) {
         discountedProducts.add(product);
+      }
+       if (product.isFavorite) {
+        favoriteProducts.add(product);
       }
     }
   }
@@ -229,6 +235,16 @@ class _MyHomeState extends State<MyHome> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CartPage()),
+                  );
+                },
+              ),
+                  ListTile(
+                leading: Icon(Icons.favorite),
+                title: Text('Yêu thích'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FavoritesPage(favoriteProducts: favoriteProducts)),
                   );
                 },
               ),
