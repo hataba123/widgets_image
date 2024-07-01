@@ -145,7 +145,7 @@ static Color _selectedColor = Colors.green;
                       ),
                     ],
                   ),
-                  // Form
+     // Form
                   Form(
                     key: _formKey,
                     child: Padding(
@@ -192,6 +192,7 @@ static Color _selectedColor = Colors.green;
                               prefixIcon: Icon(Icons.lock, color: dark ? Colors.white : Colors.black),
                               labelText: "Password",
                               labelStyle: TextStyle(color: dark ? Colors.white : Colors.black),
+                              suffixIcon: Icon(Icons.remove_red_eye),
                               border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(9.0)),
                                 borderSide: BorderSide(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:widgets_image/login.dart';
 import 'package:animated_background/animated_background.dart';
+import 'package:widgets_image/page/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(), // Chuyển đến màn hình chính sau khi hoàn thành thời gian Splash Screen
+          builder: (context) => MyHome(), // Chuyển đến màn hình chính sau khi hoàn thành thời gian Splash Screen
         ),
       );
     });
