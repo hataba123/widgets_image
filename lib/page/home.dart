@@ -85,6 +85,10 @@ class _MyHomeState extends State<MyHome> {
       if (response.statusCode == 200) {
         setState(() {
           categories = List<String>.from(response.data["categories"]);
+          if (categories.isNotEmpty) {
+            selectedCategory = categories[0];
+            getData();
+          }
         });
       } else {
         print('Failed to load categories');
@@ -268,7 +272,17 @@ class _MyHomeState extends State<MyHome> {
                 'assets/images/banner_2.jpg',
               ],
             ),
-            if (categories.isNotEmpty) CategoryList(categories: categories),
+          if (categories.isNotEmpty)
+            CategoryList(
+              categories: categories,
+              selectedCategory: selectedCategory,
+              onCategorySelected: (category) {
+                setState(() {
+                  selectedCategory = category;
+                  getData();
+                });
+              },
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
