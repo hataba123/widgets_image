@@ -164,33 +164,47 @@ class EditProfilePage extends StatelessWidget {
                   isNetworkImage: true,
                   fit: BoxFit.cover
                  ),
-                TextButton(onPressed: (){}, child: const Text('Thay đổi hình ảnh')),
+                TextButton(onPressed: (){}, child: const Text('Thay đổi hình ảnh', style: TextStyle(fontSize: 18),)),
               ],
             ),
           ),
 
               ///Details
               const SizedBox(height: 8.0),
-              const Divider(),
+              const Divider(thickness: 4),
               const SizedBox(height: 8.0),
 
               /// Phần đầu info
-              const TSectionHeading(title: 'Thông tin cá nhân', showActionButton: false),
+              const TSectionHeading(title: 'Thông tin cá nhân',textColor: TColors.primary, showActionButton: false),
               const SizedBox(height: 8.0),
 
               TProfileMenu(onPressed: (){}, title: 'Tên', value: 'Cuong', fontSize: 21),
               TProfileMenu(onPressed: (){}, title: 'Tên người dùng', value: 'Cuong', fontSize: 21),
               
               const SizedBox(height: 16),
-              const Divider(),
+              const Divider(thickness: 4),
               const SizedBox(height: 16),
 
               /// Heading ca nhan
-              TProfileMenu(onPressed: (){}, title: 'User ID', value: '9999', fontSize: 21),
+              TSectionHeading(title: 'Thông tin người dùng', textColor: TColors.primary, showActionButton: false),
+              const SizedBox(height: 16),
+
+              TProfileMenu(onPressed: (){}, title: 'User ID', value: '9999', icon: Icons.copy,fontSize: 21),
               TProfileMenu(onPressed: (){}, title: 'E-mail', value: 'Cuong@gmail.com', fontSize: 21),
               TProfileMenu(onPressed: (){}, title: 'SDT', value: '0389567456', fontSize: 21),
               TProfileMenu(onPressed: (){}, title: 'Giới tính', value: 'Nam', fontSize: 21),
               TProfileMenu(onPressed: (){}, title: 'Ngày sinh', value: '18/11/1987', fontSize: 21),
+              const SizedBox(height: 8),
+              const Divider(thickness: 4),
+              const SizedBox(height: 8),
+
+              Center(
+                child: TextButton( 
+                  onPressed: (){},
+                  child: const Text('Đóng tài khoản', style: TextStyle(color: TColors.error, fontSize: 30))
+                  ),
+              ),
+        
         ],
       ),
       ),
