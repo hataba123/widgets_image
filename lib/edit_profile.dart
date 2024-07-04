@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_image/constants/T_circular_imgaes.dart';
+import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/settings.dart';
+import 'package:widgets_image/utils/theme/custom_themes/profile_menu.dart';
+import 'package:widgets_image/utils/theme/custom_themes/selection_heading.dart';
 
 class EditProfilePage extends StatelessWidget {
   bool showPassword = false;
@@ -7,12 +11,12 @@ class EditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: TColors.primary, //Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.green,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context); // Go back to the previous screen
@@ -22,7 +26,7 @@ class EditProfilePage extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.settings,
-              color: Colors.green,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -31,7 +35,7 @@ class EditProfilePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
+    /*  body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
           onTap: () {
@@ -143,11 +147,66 @@ class EditProfilePage extends StatelessWidget {
             ],
           ),
         ),
+      ),*/
+
+      body: SingleChildScrollView(
+        child: Padding(padding: EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,            ///Profile image
+              child: Column(
+              children: [
+                TCircularImgaes(
+                  image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RnWFzSpz13tXfFqeEE1UfNenLniz8ogHxg&s',
+                  width: 180,
+                  height: 180,
+                  isNetworkImage: true,
+                  fit: BoxFit.cover
+                 ),
+                TextButton(onPressed: (){}, child: const Text('Thay đổi hình ảnh')),
+              ],
+            ),
+          ),
+
+              ///Details
+              const SizedBox(height: 8.0),
+              const Divider(),
+              const SizedBox(height: 8.0),
+
+              /// Phần đầu info
+              const TSectionHeading(title: 'Thông tin cá nhân', showActionButton: false),
+              const SizedBox(height: 8.0),
+
+              TProfileMenu(onPressed: (){}, title: 'Tên', value: 'Cuong', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: 'Tên người dùng', value: 'Cuong', fontSize: 21),
+              
+              const SizedBox(height: 16),
+              const Divider(),
+              const SizedBox(height: 16),
+
+              /// Heading ca nhan
+              TProfileMenu(onPressed: (){}, title: 'User ID', value: '9999', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: 'E-mail', value: 'Cuong@gmail.com', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: 'SDT', value: '0389567456', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: 'Giới tính', value: 'Nam', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: 'Ngày sinh', value: '18/11/1987', fontSize: 21),
+        ],
       ),
+      ),
+    ),
+
+
+
+
+
+
+
+
     );
   }
 
-  Widget buildTextField(
+ /* Widget buildTextField(
       String labelText, String placeholder, bool isPasswordTextField) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
@@ -181,4 +240,5 @@ class EditProfilePage extends StatelessWidget {
   }
 
   void setState(Null Function() param0) {}
+  */
 }
