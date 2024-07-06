@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_image/api/api_service.dart';
 import 'package:widgets_image/constants/color.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/page/home.dart';
 import 'package:widgets_image/global.dart' as globals;
 
@@ -131,14 +132,14 @@ static Color _selectedColor = Colors.green;
                         ),
                       ),
                       Text(
-                        "CHÀO MỪNG BẠN",
+                        translation(context).chaomungban,
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               color: dark ? Colors.white : TColors.dark,
                             ),
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        "Vô số mặt hàng và khuyến mãi đang đợi chờ bạn",
+                        translation(context).thongbaokhuyenmai,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: dark ? Colors.white : TColors.dark,
                             ),
@@ -158,14 +159,14 @@ static Color _selectedColor = Colors.green;
 
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
+                                return translation(context).vuilongnhapvaoemail;
                               }
                               return null;
                             },
                             style: TextStyle(color: dark ? Colors.white : Colors.black ),
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.email, color: dark ? Colors.white : Colors.black),
-                              labelText: "Email",
+                              labelText: translation(context).email,
                               labelStyle: TextStyle(color: dark ? Colors.white : Colors.black),
                               border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(9.0)),
@@ -183,14 +184,14 @@ static Color _selectedColor = Colors.green;
 
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
+                                return translation(context).vuilongnhapvaomatkhau;
                               }
                               return null;
                             },
                             style: TextStyle(color: dark ? Colors.white : Colors.black),
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.lock, color: dark ? Colors.white : Colors.black),
-                              labelText: "Password",
+                              labelText: translation(context).matkhau,
                               labelStyle: TextStyle(color: dark ? Colors.white : Colors.black),
                               suffixIcon: Icon(Icons.remove_red_eye),
                               border: const OutlineInputBorder(
@@ -215,7 +216,7 @@ static Color _selectedColor = Colors.green;
                                     activeColor: dark ? Colors.white : Colors.black,
                                   ),
                                   Text(
-                                    "Lưu mật khẩu của tôi",
+                                    translation(context).luumatkhaucuatoi,
                                     style: TextStyle(color: dark ? Colors.white : Colors.black),
                                   ),
                                 ],
@@ -223,7 +224,7 @@ static Color _selectedColor = Colors.green;
                               TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "Quên password",
+                                  translation(context).quenpassword,
                                   style: TextStyle(color: dark ? Colors.white : Colors.black),
                                 ),
                               ),
@@ -234,7 +235,7 @@ static Color _selectedColor = Colors.green;
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: _isLoading ? null : _login,
-                              child: _isLoading ? CircularProgressIndicator() : const Text("Đăng nhập"),
+                              child: _isLoading ? CircularProgressIndicator() : Text(translation(context).dangnhap),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: dark ? Colors.grey[400] : TColors.white,
                                 foregroundColor: dark ? Colors.white : Colors.black,
@@ -246,7 +247,7 @@ static Color _selectedColor = Colors.green;
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {},
-                              child: const Text("Tạo tài khoản"),
+                              child: Text(translation(context).taotaikhoan),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: dark ? Colors.grey[400] : TColors.white,
                                 foregroundColor: dark ? Colors.white : Colors.black,

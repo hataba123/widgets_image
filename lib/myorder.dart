@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import '../data/order_model.dart';
 import 'package:widgets_image/page/home.dart';
 
@@ -19,7 +20,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Đơn hàng của tôi'),
+        title: Text(translation(context).donhangcuatoi),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

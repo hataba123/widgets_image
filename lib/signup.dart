@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/login.dart';
 
 import 'package:widgets_image/page/home.dart';
@@ -19,15 +20,6 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
-
-
-
-
-
-
-      
       body: Padding(
        padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
       
@@ -46,49 +38,49 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(                  
                   alignment: Alignment.center,
-                  child: const Text(
-                    'ĐĂNG KÝ',
+                  child:  Text(
+                    translation(context).dangky,
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueAccent),
                 ),
                 ),
-                const SizedBox(height:16),
+                SizedBox(height:16),
                 TextFormField(
                   controller: _nameController,
-                  decoration: const InputDecoration(
-                    labelText: "Họ và tên",
+                  decoration:  InputDecoration(
+                    labelText: translation(context).hovaten,
                   ),
                 ),
-                const SizedBox(height:16),
+                SizedBox(height:16),
                 TextFormField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: "Email",
+                  decoration: InputDecoration(
+                    labelText: translation(context).email,
                   ),
                 ),                
-                const SizedBox(height:16),
+                SizedBox(height:16),
                 TextFormField(
                   controller: _phoneController,
-                  decoration: const InputDecoration(
-                    labelText: "Số điện thoại",
+                  decoration: InputDecoration(
+                    labelText: translation(context).sodienthoai,
                   ),
                 ),
-                const SizedBox(height:16),
+                SizedBox(height:16),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "Mật khẩu",
+                  decoration: InputDecoration(
+                    labelText: translation(context).matkhau,
                   ),
                 ),
-                const SizedBox(height:16),
+                SizedBox(height:16),
                 TextFormField(
                   controller: _confirmpassController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "Xác nhận mật khẩu",
+                  decoration: InputDecoration(
+                    labelText: translation(context).xacnhanmatkhau,
                   ),
                 ),                
                 const SizedBox(height:16),
@@ -103,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                             MaterialPageRoute(builder: (context) => LoginScreen()),
                           );
                         },
-                        child: const Text('Trở lại trang Đăng nhập'),
+                        child: Text(translation(context).trolaitrangdangnhap),
                       ),
                     ),
                     const SizedBox(
@@ -116,7 +108,7 @@ class _SignUpState extends State<SignUp> {
                             MaterialPageRoute(builder: (context) => SignUp()),
                           );
                         },
-                      child: const Text("Đăng ký"),
+                      child:Text(translation(context).dangkybutton),
                     ),
                     ),                   
                   ],

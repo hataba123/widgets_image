@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/cart_model.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'orderpage.dart';
 
 class CartPage extends StatelessWidget {
@@ -10,7 +11,7 @@ class CartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Giỏ hàng'),
+        title: Text(translation(context).giohang),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -21,7 +22,7 @@ class CartPage extends StatelessWidget {
       body: Consumer<CartModel>(
         builder: (context, cart, child) {
           if (cart.items.isEmpty) {
-            return Center(child: Text('Giỏ hàng của bạn đang trống.'));
+            return Center(child: Text(translation(context).thongbaogiohangtrong));
           }
 
           return ListView.builder(
@@ -75,7 +76,7 @@ class CartPage extends StatelessWidget {
                             ),
                           );
                         },
-                  child: Text('Đặt hàng'),
+                  child: Text(translation(context).dathang),
                 ),
               ],
             ),

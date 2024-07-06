@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:widgets_image/components/product_titles.dart';
 import 'package:widgets_image/constant.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/page/favorites_provider.dart';
 import 'components/color_and_size.dart';
 import 'components/fav_button.dart';
@@ -39,8 +40,8 @@ class ProductDetailPage extends StatelessWidget {
                   backgroundColor: Colors.green,
                   content: Text(
                     product.isFavorite
-                        ? 'Đã thêm vào yêu thích'
-                        : 'Đã xóa khỏi yêu thích',
+                        ? translation(context).dathemvaoyeuthich
+                        : translation(context).daxoakhoiyeuthich,
                   ),
                   duration: Duration(seconds: 2),
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_image/constants/T_circular_imgaes.dart';
 import 'package:widgets_image/constants/color.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/settings.dart';
 import 'package:widgets_image/utils/theme/custom_themes/profile_menu.dart';
 import 'package:widgets_image/utils/theme/custom_themes/selection_heading.dart';
@@ -14,7 +15,7 @@ class EditProfilePage extends StatelessWidget {
         backgroundColor: TColors.primary, //Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
@@ -24,7 +25,7 @@ class EditProfilePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               color: Colors.white,
             ),
@@ -150,14 +151,14 @@ class EditProfilePage extends StatelessWidget {
       ),*/
 
       body: SingleChildScrollView(
-        child: Padding(padding: EdgeInsets.all(24.0),
+        child: Padding(padding:const EdgeInsets.all(24.0),
         child: Column(
           children: [
             SizedBox(
               width: double.infinity,            ///Profile image
               child: Column(
               children: [
-                TCircularImgaes(
+                const TCircularImgaes(
                   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-RnWFzSpz13tXfFqeEE1UfNenLniz8ogHxg&s',
                   width: 180,
                   height: 180,
@@ -175,25 +176,25 @@ class EditProfilePage extends StatelessWidget {
               const SizedBox(height: 8.0),
 
               /// Phần đầu info
-              const TSectionHeading(title: 'Thông tin cá nhân',textColor: TColors.primary, showActionButton: false),
+              TSectionHeading(title: translation(context).thongtincanhan,textColor: TColors.primary, showActionButton: false),
               const SizedBox(height: 8.0),
 
-              TProfileMenu(onPressed: (){}, title: 'Tên', value: 'Cuong', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: 'Tên người dùng', value: 'Cuong', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).ten, value: 'Cuong', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).tennguoidung, value: 'Cuong', fontSize: 21),
               
               const SizedBox(height: 16),
               const Divider(thickness: 4),
               const SizedBox(height: 16),
 
               /// Heading ca nhan
-              TSectionHeading(title: 'Thông tin người dùng', textColor: TColors.primary, showActionButton: false),
+              TSectionHeading(title: translation(context).thongtinnguoidung, textColor: TColors.primary, showActionButton: false),
               const SizedBox(height: 16),
 
-              TProfileMenu(onPressed: (){}, title: 'User ID', value: '9999', icon: Icons.copy,fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: 'E-mail', value: 'Cuong@gmail.com', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: 'SDT', value: '0389567456', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: 'Giới tính', value: 'Nam', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: 'Ngày sinh', value: '18/11/1987', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).userid, value: '9999', icon: Icons.copy,fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).email, value: 'Cuong@gmail.com', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).sdt, value: '0389567456', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).gioitinh, value: 'Nam', fontSize: 21),
+              TProfileMenu(onPressed: (){}, title: translation(context).ngaysinh, value: '18/11/1987', fontSize: 21),
               const SizedBox(height: 8),
               const Divider(thickness: 4),
               const SizedBox(height: 8),
@@ -201,7 +202,7 @@ class EditProfilePage extends StatelessWidget {
               Center(
                 child: TextButton( 
                   onPressed: (){},
-                  child: const Text('Đóng tài khoản', style: TextStyle(color: TColors.error, fontSize: 30))
+                  child: Text(translation(context).dongtaikhoan, style: TextStyle(color: TColors.error, fontSize: 30))
                   ),
               ),
         
@@ -209,14 +210,6 @@ class EditProfilePage extends StatelessWidget {
       ),
       ),
     ),
-
-
-
-
-
-
-
-
     );
   }
 

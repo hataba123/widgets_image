@@ -6,7 +6,9 @@ import 'package:widgets_image/cart.dart';
 import 'package:widgets_image/data/cart_model.dart';
 import 'package:widgets_image/data/model.dart';
 import 'package:widgets_image/favouritelist.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/login.dart';
+import 'package:widgets_image/main.dart';
 import 'package:widgets_image/settings.dart';
 import '../data/data.dart';
 import '../config/const.dart';
@@ -17,7 +19,8 @@ import 'theme_provider.dart';
 import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/category_list.dart';
 import 'package:widgets_image/global.dart' as globals;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widgets_image/language/language.dart';
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
 
@@ -128,9 +131,9 @@ class _MyHomeState extends State<MyHome> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.blue, Colors.purple],
               begin: Alignment.topLeft,
@@ -140,7 +143,7 @@ class _MyHomeState extends State<MyHome> {
           child: AppBar(
             title: isSearching
                 ? TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Search products...',
                       border: InputBorder.none,
                     ),
@@ -177,7 +180,7 @@ class _MyHomeState extends State<MyHome> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 accountName: const Text(
@@ -189,22 +192,22 @@ class _MyHomeState extends State<MyHome> {
                 ),
                 accountEmail: Text(
                   globals.loggedInEmail,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Trang chủ'),
+                leading: const Icon(Icons.home),
+                title: Text(translation(context).trangchu),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Cài đặt'),
+                leading: const Icon(Icons.settings),
+                title: Text(translation(context).caidat),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -213,18 +216,46 @@ class _MyHomeState extends State<MyHome> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.brightness_6),
-                title: Text('Chế độ sáng/tối'),
+                leading: const Icon(Icons.brightness_6),
+                title:  Text(translation(context).chedosangtoi),
                 trailing: Switch(
-                  value: themeProvider.isDarkMode,
+                  value: !themeProvider.isDarkMode,
                   onChanged: (value) {
-                    themeProvider.toggleTheme(value);
+                    themeProvider.toggleTheme(!value);
                   },
                 ),
               ),
               ListTile(
+              leading: Icon(Icons.language),
+              title: Text(translation(context).ngonngu),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ListView(
+                      shrinkWrap: true,
+                      children: Language.languageList()
+                          .map<Widget>((language) => ListTile(
+                                leading: Text(
+                                  language.flag,
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                title: Text(language.name),
+                                onTap: () async {
+                                  Locale _locale = await setLocale(language.languageCode);
+                                  MyApp.setLocale(context, _locale);
+                                  Navigator.pop(context); // Đóng modal
+                                },
+                              ))
+                          .toList(),
+                    );
+                  },
+                );
+              },
+            ),
+              ListTile(
                 leading: Icon(Icons.logout),
-                title: Text('Đăng xuất'),
+                title: Text(translation(context).dangxuat),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -234,7 +265,7 @@ class _MyHomeState extends State<MyHome> {
               ),
               ListTile(
                 leading: Icon(Icons.shopping_cart),
-                title: Text('Giỏ hàng'),
+                title: Text(translation(context).giohang),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -244,7 +275,7 @@ class _MyHomeState extends State<MyHome> {
               ),
                   ListTile(
                 leading: Icon(Icons.favorite),
-                title: Text('Yêu thích'),
+                title: Text(translation(context).yeuthich),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -290,7 +321,7 @@ class _MyHomeState extends State<MyHome> {
                 children: [
                   Expanded(
                     child: DropdownButton<String>(
-                      hint: Text("Chọn danh mục"),
+                      hint: Text(translation(context).danhmuc),
                       value: selectedCategory,
                       onChanged: (String? newValue) {
                         setState(() {
@@ -309,7 +340,7 @@ class _MyHomeState extends State<MyHome> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButton<String>(
-                      hint: Text("Sắp xếp theo giá"),
+                      hint: Text(translation(context).sapxeptheogia),
                       value: selectedSortOrder,
                       onChanged: (String? newValue) {
                         setState(() {
@@ -320,11 +351,11 @@ class _MyHomeState extends State<MyHome> {
                       items: [
                         DropdownMenuItem<String>(
                           value: 'asc',
-                          child: Text('Giá tăng dần'),
+                          child: Text(translation(context).giatangdan),
                         ),
                         DropdownMenuItem<String>(
                           value: 'desc',
-                          child: Text('Giá giảm dần'),
+                          child: Text(translation(context).giagiamdan),
                         ),
                       ],
                     ),
@@ -337,14 +368,14 @@ class _MyHomeState extends State<MyHome> {
                 padding: const EdgeInsets.all(16),
                 children: [
                   if (!isSearching) ...[
-                    buildProductSection("SẢN PHẨM BÁN CHẠY", bestSellingProducts),
+                    buildProductSection(translation(context).spbanchay, bestSellingProducts),
                     const SizedBox(height: 16),
-                    buildProductSection("SẢN PHẨM MỚI NHẤT", newestProducts),
+                    buildProductSection(translation(context).spmoinhat, newestProducts),
                     const SizedBox(height: 16),
                     buildProductSection(
-                        "SẢN PHẨM ĐANG GIẢM GIÁ", discountedProducts),
+                        translation(context).spgiamgia, discountedProducts),
                   ] else ...[
-                    buildProductSection("KẾT QUẢ TÌM KIẾM", filteredProducts),
+                    buildProductSection(translation(context).ketquatimkiem, filteredProducts),
                   ],
                 ],
               ),
@@ -473,7 +504,7 @@ class _MyHomeState extends State<MyHome> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                product.name ?? 'No name',
+                product.name ?? 'Không có tên',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 15,

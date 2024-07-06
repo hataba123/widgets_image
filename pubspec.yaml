@@ -30,9 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.18.0
+  intl: 0.19.0
+  shared_preferences: ^2.0.13
   carousel_slider: ^4.2.1
-
+  flutter_localizations:
+    sdk: flutter
    #Utility package
  
 
@@ -58,7 +60,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -70,7 +72,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  
+  generate: true
   assets:
     - assets/images/
     - assets/logos/

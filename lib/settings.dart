@@ -4,6 +4,7 @@ import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/custom_shape/container/circurlar_container.dart';
 import 'package:widgets_image/custom_shape/curved_edges/curved_edges.dart';
 import 'package:widgets_image/custom_shape/curved_edges/curved_edges_widget.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/login.dart';
 import 'package:widgets_image/myorder.dart';
 import 'package:widgets_image/orderpage.dart';
@@ -43,7 +44,7 @@ class SettingsPage extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             child: Text(
-                              'Cài đặt',
+                              translation(context).caidat,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineLarge!
@@ -83,7 +84,7 @@ class SettingsPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Quản lí thông tin cá nhân',
+              translation(context).quanlithongtincanhan,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Divider(
@@ -93,7 +94,7 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.edit),
               title: Text(
-                'Chỉnh sửa thông tin',
+                translation(context).chinhsuathongtin,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -109,7 +110,7 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.shopping_cart),
               title: Text(
-                'Đơn hàng của tôi',
+                translation(context).donhangcuatoi,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -125,7 +126,7 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.account_box),
               title: Text(
-                'Đăng xuất',
+                translation(context).dangxuat,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

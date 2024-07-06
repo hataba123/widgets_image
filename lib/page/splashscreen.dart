@@ -46,11 +46,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             vsync: this,
             child: Container(),
           ),
-         
-
-
-
-
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

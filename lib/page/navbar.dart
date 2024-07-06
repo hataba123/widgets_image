@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/favouritelist.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/page/favorites_provider.dart';
 import 'package:widgets_image/page/home.dart';
 import 'package:widgets_image/cart.dart';
 import 'package:widgets_image/settings.dart';
 
 class NavBarWidget extends StatelessWidget {
-
-
-
-
-  
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-
-      
-    
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.black,
       showUnselectedLabels: false,
-      items: const [
+      items: [
         BottomNavigationBarItem(
            backgroundColor:   Colors.white ,
           icon: Icon(Icons.home),
-          label: 'Home',
+          label: translation(context).trangchu,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),
-          label: 'Favorites',
+          label: translation(context).yeuthich,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.shopping_cart),
-          label: 'Cart',
+          label: translation(context).giohang,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          label: 'Settings',
+          label: translation(context).caidat,
         ),
       ],
       onTap: (index) {

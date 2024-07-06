@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:widgets_image/data/model.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/productdetailpage.dart';
-import 'package:widgets_image/theme_provider.dart';
-import 'package:widgets_image/page/navbar.dart';
 
 class FavoritesPage extends StatelessWidget {
   final List<ProductModel> favoriteProducts;
@@ -15,7 +13,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Danh sách yêu thích", style: TextStyle(color: Colors.white)),
+        title: Text(translation(context).danhsachyeuthich, style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.red,
         elevation: 0,
@@ -31,7 +29,7 @@ class FavoritesPage extends StatelessWidget {
         child: favoriteProducts.isEmpty
             ? Center(
                 child: Text(
-                  "Không có sản phẩm yêu thích",
+                  translation(context).khongcosanphamyeuthich,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               )
@@ -47,11 +45,11 @@ class FavoritesPage extends StatelessWidget {
                             height: 50,
                             fit: BoxFit.cover,
                           )
-                        : Icon(Icons.image, size: 50),
+                        : const Icon(Icons.image, size: 50),
                     title: Text(product.name ?? ''),
                     subtitle: Text(product.des ?? ''),
                     trailing: IconButton(
-                      icon: Icon(Icons.arrow_forward),
+                      icon: const Icon(Icons.arrow_forward),
                       onPressed: () {
                         Navigator.push(
                           context,

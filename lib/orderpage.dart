@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:widgets_image/data/cart_model.dart';
+import 'package:widgets_image/language/language_constants.dart';
 import '../data/order_model.dart';
 import 'package:widgets_image/myorder.dart';
 import 'package:dio/dio.dart';
@@ -34,7 +35,7 @@ class _OrderPageState extends State<OrderPage> {
         });
       } else {
         setState(() {
-          discountMessage = 'Mã giảm giá không hợp lệ hoặc đã hết hạn';
+          discountMessage = translation(context).magiamgiakhonghople;
           discount = 0.0;
         });
       }
@@ -61,7 +62,7 @@ class _OrderPageState extends State<OrderPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Đặt hàng'),
+        title: Text(translation(context).dathang),
       ),
       body: Column(
         children: [
@@ -109,7 +110,7 @@ class _OrderPageState extends State<OrderPage> {
                 TextField(
                   controller: couponController,
                   decoration: InputDecoration(
-                    labelText: 'Nhập mã giảm giá',
+                    labelText: translation(context).nhapmagiamgia,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -120,17 +121,17 @@ class _OrderPageState extends State<OrderPage> {
                     final coupon = couponController.text;
                     fetchDiscount(coupon).then((_) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(discountMessage ?? 'Lỗi khi kiểm tra mã giảm giá')),
+                        SnackBar(content: Text(discountMessage ?? translation(context).loikhinhapmagiamgia)),
                       );
                     });
                   },
-                  child: Text('Kiểm tra mã giảm giá'),
+                  child: Text(translation(context).kiemtramagiamgia),
                 ),
                 SizedBox(height: 8),
                 TextField(
                   controller: addressController,
                   decoration: InputDecoration(
-                    labelText: 'Nhập địa chỉ của bạn',
+                    labelText: translation(context).nhapdiachicuaban,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -156,11 +157,11 @@ class _OrderPageState extends State<OrderPage> {
                     } else {
                       // Hiển thị thông báo nếu chưa nhập địa chỉ
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Vui lòng nhập địa chỉ')),
-                      );
+                        SnackBar(content: Text(translation(context).vuilongnhapdiachi),
+                      ),);
                     }
                   },
-                  child: Text('Đặt hàng'),
+                  child: Text(translation(context).dathang),
                 ),
               ],
             ),
