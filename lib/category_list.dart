@@ -15,7 +15,7 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8), // Khoảng cách ở cả hai đầu
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -34,12 +34,14 @@ class CategoryList extends StatelessWidget {
                       margin: EdgeInsets.only(right: 10),
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.orange[200] : Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.orange,
-                          width: 4.0,
-                        ),
+                        border: isSelected
+                            ? Border(
+                                bottom: BorderSide(
+                                  color: Colors.blue,
+                                  width: 2.0,
+                                ),
+                              )
+                            : null,
                       ),
                       child: Center(
                         child: Text(
@@ -47,8 +49,7 @@ class CategoryList extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            
+                            color: isSelected ? Colors.blue : Colors.black,
                           ),
                         ),
                       ),
