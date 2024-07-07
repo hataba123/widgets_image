@@ -17,10 +17,11 @@ import 'navbar.dart';
 import 'package:widgets_image/productdetailpage.dart';
 import 'theme_provider.dart';
 import 'package:widgets_image/constants/color.dart';
-import 'package:widgets_image/category_list.dart';
 import 'package:widgets_image/global.dart' as globals;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:widgets_image/category_list.dart';
 import 'package:widgets_image/language/language.dart';
+
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
 
@@ -40,7 +41,6 @@ class _MyHomeState extends State<MyHome> {
   // categories
   List<String> categories = [];
   String? selectedCategory;
-  String? selectedSortOrder;
 
   List<dynamic>? jsonList; // Sử dụng kiểu dữ liệu nullable
   final String baseUrl = 'http://10.0.2.2:4000/';
@@ -67,7 +67,7 @@ class _MyHomeState extends State<MyHome> {
       if (product.isDiscounted ?? false) {
         discountedProducts.add(product);
       }
-       if (product.isFavorite) {
+      if (product.isFavorite) {
         favoriteProducts.add(product);
       }
     }
@@ -105,7 +105,6 @@ class _MyHomeState extends State<MyHome> {
     try {
       Map<String, dynamic> queryParameters = {
         if (selectedCategory != null) 'category': selectedCategory,
-        if (selectedSortOrder != null) 'sort': selectedSortOrder,
       };
 
       var response = await Dio().get(
@@ -226,33 +225,33 @@ class _MyHomeState extends State<MyHome> {
                 ),
               ),
               ListTile(
-              leading: Icon(Icons.language),
-              title: Text(translation(context).ngonngu),
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ListView(
-                      shrinkWrap: true,
-                      children: Language.languageList()
-                          .map<Widget>((language) => ListTile(
-                                leading: Text(
-                                  language.flag,
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                                title: Text(language.name),
-                                onTap: () async {
-                                  Locale _locale = await setLocale(language.languageCode);
-                                  MyApp.setLocale(context, _locale);
-                                  Navigator.pop(context); // Đóng modal
-                                },
-                              ))
-                          .toList(),
-                    );
-                  },
-                );
-              },
-            ),
+                leading: Icon(Icons.language),
+                title: Text(translation(context).ngonngu),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ListView(
+                        shrinkWrap: true,
+                        children: Language.languageList()
+                            .map<Widget>((language) => ListTile(
+                                  leading: Text(
+                                    language.flag,
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  title: Text(language.name),
+                                  onTap: () async {
+                                    Locale _locale = await setLocale(language.languageCode);
+                                    MyApp.setLocale(context, _locale);
+                                    Navigator.pop(context); // Đóng modal
+                                  },
+                                ))
+                            .toList(),
+                      );
+                    },
+                  );
+                },
+              ),
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text(translation(context).dangxuat),
@@ -273,7 +272,7 @@ class _MyHomeState extends State<MyHome> {
                   );
                 },
               ),
-                  ListTile(
+              ListTile(
                 leading: Icon(Icons.favorite),
                 title: Text(translation(context).yeuthich),
                 onTap: () {
@@ -303,66 +302,17 @@ class _MyHomeState extends State<MyHome> {
                 'assets/images/banner_2.jpg',
               ],
             ),
-          if (categories.isNotEmpty)
-            CategoryList(
-              categories: categories,
-              selectedCategory: selectedCategory,
-              onCategorySelected: (category) {
-                setState(() {
-                  selectedCategory = category;
-                  getData();
-                });
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: DropdownButton<String>(
-                      hint: Text(translation(context).danhmuc),
-                      value: selectedCategory,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedCategory = newValue;
-                          getData();
-                        });
-                      },
-                      items: categories.map<DropdownMenuItem<String>>((String category) {
-                        return DropdownMenuItem<String>(
-                          value: category,
-                          child: Text(category),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: DropdownButton<String>(
-                      hint: Text(translation(context).sapxeptheogia),
-                      value: selectedSortOrder,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedSortOrder = newValue;
-                          getData();
-                        });
-                      },
-                      items: [
-                        DropdownMenuItem<String>(
-                          value: 'asc',
-                          child: Text(translation(context).giatangdan),
-                        ),
-                        DropdownMenuItem<String>(
-                          value: 'desc',
-                          child: Text(translation(context).giagiamdan),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            if (categories.isNotEmpty)
+              CategoryList(
+                categories: categories,
+                selectedCategory: selectedCategory,
+                onCategorySelected: (category) {
+                  setState(() {
+                    selectedCategory = category;
+                    getData();
+                  });
+                },
               ),
-            ),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(16),

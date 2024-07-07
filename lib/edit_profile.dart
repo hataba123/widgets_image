@@ -6,8 +6,34 @@ import 'package:widgets_image/settings.dart';
 import 'package:widgets_image/utils/theme/custom_themes/profile_menu.dart';
 import 'package:widgets_image/utils/theme/custom_themes/selection_heading.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
+  @override
+  _EditProfilePageState createState() => _EditProfilePageState();
+}
+class _EditProfilePageState extends State<EditProfilePage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController userIdController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController sdtController = TextEditingController();
+  final TextEditingController gioitinhController = TextEditingController();
+  final TextEditingController ngaysinhController = TextEditingController();
+  final FocusNode emailFocusNode = FocusNode();
   bool showPassword = false;
+  
+  @override
+  void dispose() {
+    usernameController.dispose();
+    nameController.dispose();
+    userIdController.dispose();
+    emailController.dispose();
+    sdtController.dispose();
+    gioitinhController.dispose();
+    ngaysinhController.dispose();
+    // Dispose FocusNodes
+    emailFocusNode.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,9 +205,26 @@ class EditProfilePage extends StatelessWidget {
               TSectionHeading(title: translation(context).thongtincanhan,textColor: TColors.primary, showActionButton: false),
               const SizedBox(height: 8.0),
 
-              TProfileMenu(onPressed: (){}, title: translation(context).ten, value: 'Cuong', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: translation(context).tennguoidung, value: 'Cuong', fontSize: 21),
-              
+              TProfileMenu(onPressed: (){}, title: translation(context).ten, child: TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).ten,
+                  ),
+                ), fontSize: 21),
+              TProfileMenu(
+                onPressed: () {},  // Thêm hành động xử lý khi người dùng nhấn vào đây
+                title: translation(context).tennguoidung, 
+                child: TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).tennguoidung,
+                  ),
+                ),
+                fontSize: 21,
+              ),
+          
               const SizedBox(height: 16),
               const Divider(thickness: 4),
               const SizedBox(height: 16),
@@ -190,11 +233,89 @@ class EditProfilePage extends StatelessWidget {
               TSectionHeading(title: translation(context).thongtinnguoidung, textColor: TColors.primary, showActionButton: false),
               const SizedBox(height: 16),
 
-              TProfileMenu(onPressed: (){}, title: translation(context).userid, value: '9999', icon: Icons.copy,fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: translation(context).email, value: 'Cuong@gmail.com', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: translation(context).sdt, value: '0389567456', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: translation(context).gioitinh, value: 'Nam', fontSize: 21),
-              TProfileMenu(onPressed: (){}, title: translation(context).ngaysinh, value: '18/11/1987', fontSize: 21),
+              TProfileMenu(
+                onPressed: () {},  // Thêm hành động xử lý khi người dùng nhấn vào đây
+                title: translation(context).tennguoidung, 
+                child: TextFormField(
+                  controller: usernameController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).tennguoidung,
+                  ),
+                ),
+                fontSize: 21,
+              ),
+              const SizedBox(height: 16),
+              const Divider(thickness: 4),
+              const SizedBox(height: 16),
+              TSectionHeading(
+                title: translation(context).thongtinnguoidung, 
+                textColor: TColors.primary, 
+                showActionButton: false,
+              ),
+              const SizedBox(height: 16),
+              TProfileMenu(
+                onPressed: () {},  // Thêm hành động xử lý khi người dùng nhấn vào đây
+                title: translation(context).userid, 
+                child: TextFormField(
+                  controller: sdtController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).userid,
+                  ),
+                ),
+              ),
+              TProfileMenu(
+                onPressed: () {
+                   FocusScope.of(context).requestFocus(emailFocusNode); // Use the specific FocusNode
+                },  // Thêm hành động xử lý khi người dùng nhấn vào đây
+                title: translation(context).email, 
+                child: TextFormField(
+                  focusNode: emailFocusNode, // Assign the FocusNode here
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).email,
+                  ),
+                ),
+                fontSize: 21,
+              ),
+              TProfileMenu(
+                onPressed: () {},  // Thêm hành động xử lý khi người dùng nhấn vào đây
+                title: translation(context).sdt, 
+                child: TextFormField(
+                  controller: sdtController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).sdt,
+                  ),
+                ),
+                fontSize: 21,
+              ),
+              TProfileMenu(
+                onPressed: () {},  // Thêm hành động xử lý khi người dùng nhấn vào đây
+                title: translation(context).gioitinh, 
+                child: TextFormField(
+                  controller: gioitinhController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).gioitinh,
+                  ),
+                ),
+                fontSize: 21,
+              ),
+              TProfileMenu(
+                onPressed: () {},  // Thêm hành động xử lý khi người dùng nhấn vào đây                
+                title: translation(context).ngaysinh, 
+                child: TextFormField(
+                  controller: ngaysinhController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: translation(context).ngaysinh,
+                  ),
+                ),
+                fontSize: 21,
+              ),
               const SizedBox(height: 8),
               const Divider(thickness: 4),
               const SizedBox(height: 8),

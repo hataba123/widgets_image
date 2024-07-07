@@ -5,6 +5,7 @@ import 'package:widgets_image/constant.dart';
 import 'package:widgets_image/data/model.dart';
 import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/page/favorites_provider.dart';
+import 'package:widgets_image/page/home.dart';
 import 'components/color_and_size.dart';
 import 'components/fav_button.dart';
 import 'components/description.dart';
@@ -26,7 +27,15 @@ class ProductDetailPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
-        iconTheme: IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyHome()),
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(

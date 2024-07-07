@@ -6,16 +6,18 @@ class TProfileMenu extends StatelessWidget {
     super.key,  
     required this.onPressed,
     required this.title, 
-    required this.value,
+    this.value,
+    this.child,
     this.icon = Icons.arrow_forward_ios,
     this.fontSize = 20.0,
     });
-  
   final IconData icon;
   final VoidCallback onPressed;
-  final String title, value;
+  final String title;
+  final String? value;
   final double fontSize;
- 
+  final Widget? child; // Thêm thuộc tính child
+
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(
@@ -29,7 +31,6 @@ class TProfileMenu extends StatelessWidget {
         child: Row(
           children: [
             Expanded(flex: 5, child: Text(title, style: textStyle, overflow: TextOverflow.ellipsis)),
-            Expanded(flex: 5, child: Text(value, style: textStyle, overflow: TextOverflow.ellipsis)),
             Expanded( child: Icon(icon, size: 18.0)),   
           ],
         ),
