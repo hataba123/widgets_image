@@ -353,17 +353,7 @@ class _MyHomeState extends State<MyHome> {
           //     ProductCard(image: 'assets/images/product_3.jpg', name: 'Product 3', price: 39.99),
           //   ],
           // ),
-          if (categories.isNotEmpty)
-            CategoryList(
-              categories: categories,
-              selectedCategory: selectedCategory,
-              onCategorySelected: (category) {
-                setState(() {
-                  selectedCategory = category;
-                  getData();
-                });
-              },
-            ),
+          
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
