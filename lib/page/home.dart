@@ -360,27 +360,11 @@ class _MyHomeState extends State<MyHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: DropdownButton<String>(
-                      hint: Text(translation(context).danhmuc),
-                      value: selectedCategory,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedCategory = newValue;
-                          getData();
-                        });
-                      },
-                      items: categories.map<DropdownMenuItem<String>>((String category) {
-                        return DropdownMenuItem<String>(
-                          value: category,
-                          child: Text(category),
-                        );
-                      }).toList(),
-                    ),
-                  ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButton<String>(
+                      icon: Icon(Icons.arrow_drop_down),
+                      isExpanded: false,
                       hint: Text(translation(context).sapxeptheogia),
                       value: selectedSortOrder,
                       onChanged: (String? newValue) {

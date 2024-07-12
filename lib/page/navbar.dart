@@ -61,7 +61,7 @@ class NavBarWidget extends StatelessWidget {
             // );
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CategoryPage()),
+              MaterialPageRoute(builder: (context) => MyHome()),
             );
             break;
           case 2:

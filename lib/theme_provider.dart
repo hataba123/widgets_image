@@ -14,6 +14,8 @@ class ThemeProvider extends ChangeNotifier {
   Color get headingColor => isDarkMode ? TColors.white : TColors.black;
   Color get backgroundColor => isDarkMode ? TColors.grey2 : TColors.black;
   Color get colors => isDarkMode ? TColors.black : TColors.white;
+  Color get bodyColor => isDarkMode ? TColors.grey2 : TColors.black;
+
   void toggleTheme(bool isOn) {
     themeMode = isOn ? ThemeMode.light : ThemeMode.dark;
     notifyListeners();

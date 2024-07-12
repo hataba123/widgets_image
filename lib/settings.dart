@@ -12,6 +12,7 @@ import 'package:widgets_image/orderpage.dart';
 import 'package:widgets_image/page/home.dart';
 import 'package:widgets_image/edit_profile.dart'; // Import trang EditProfilePage
 import 'package:widgets_image/data/cart_model.dart';
+import 'package:widgets_image/page/navbar.dart';
 import 'package:widgets_image/page/theme_provider.dart';
 
 import 'custom_shape/container/primary_header_cotainer.dart'; // Thêm import này nếu chưa có
@@ -145,6 +146,7 @@ class SettingsPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: NavBarWidget(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/data/cart_model.dart';
 import 'package:widgets_image/language/language_constants.dart';
+import 'package:widgets_image/page/navbar.dart';
 import 'orderpage.dart';
 
 class CartPage extends StatelessWidget {
