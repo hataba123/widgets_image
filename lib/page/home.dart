@@ -23,6 +23,8 @@ import 'package:widgets_image/category_list.dart';
 import 'package:widgets_image/global.dart' as globals;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widgets_image/language/language.dart';
+import 'package:image_picker/image_picker.dart';
+
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
 
@@ -127,7 +129,19 @@ class _MyHomeState extends State<MyHome> {
       print(e);
     }
   }
+  void _pickImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
+    if (pickedFile != null) {
+      // Xử lý khi đã chọn được ảnh, ví dụ: lưu đường dẫn ảnh vào biến hoặc hiển thị ảnh lên giao diện
+      String imagePath = pickedFile.path;
+      // Tiếp tục xử lý ảnh như lưu vào biến, hiển thị lên UI, ...
+    } else {
+      // Xử lý khi không chọn được ảnh
+      print('Không chọn được ảnh từ thư viện');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -161,12 +175,7 @@ class _MyHomeState extends State<MyHome> {
               IconButton(
                 icon: Icon(Iconsax.camera),
                 onPressed: () {
-                  setState(() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => FavoritesPage(favoriteProducts: favoriteProducts)),
-                    );
-                  });
+                  _pickImageFromGallery(); // Gọi hàm để chọn ảnh từ thư viện ảnh của thiết bị
                 },
                 ),
               IconButton(
