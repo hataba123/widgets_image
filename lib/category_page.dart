@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/data/model.dart';
 import 'package:widgets_image/productdetailpage.dart';
 import 'package:widgets_image/theme_provider.dart';
@@ -71,16 +72,14 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    
-
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
         title: Text(translation(context).danhmuc),
-        backgroundColor: Colors.white30,
+        backgroundColor: TColors.primary,
       ),
       body: Container(
-        color: Colors.pinkAccent,
+        color: TColors.grey2,
         child: Column(
           children: [
             if (categories.isNotEmpty)

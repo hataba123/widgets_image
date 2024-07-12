@@ -20,7 +20,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => FavoritesProvider()),
       ],
       child: const MyApp(),
-    ),
+    ),  
   );
 }
 class MyApp extends StatefulWidget {
