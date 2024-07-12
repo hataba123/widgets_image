@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/src/material/colors.dart';
 class TColors{
   
 
@@ -55,8 +55,11 @@ class TColors{
   static const Color darkergrey = Color(0xFF4F4F4F);
   static const Color darkgrey = Color(0xFF939393);
   static const Color grey = Color(0xFFE0E0E0);
+  static const Color grey2 = Color(0xFFF5F5F5);
   static const Color  softgrey = Color(0xFFF4F4F4);
   static const Color lightgrey = Color(0xFFF9F9F9);
   static const Color white = Color(0xFFFFFFFF);
-  
+  static const Color lightblue = Color(0xFFB3E5FC);
+  static const Color lightpink = Color(0xFFFFE4E1);
+
 }   

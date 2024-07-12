@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets_image/constants/T_circular_imgaes.dart';
 import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/settings.dart';
 import 'package:widgets_image/utils/theme/custom_themes/profile_menu.dart';
 import 'package:widgets_image/utils/theme/custom_themes/selection_heading.dart';
+
+import 'page/theme_provider.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -36,14 +39,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.primary, //Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
         leading: IconButton(
-          icon: const Icon(
+          icon:  Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: themeProvider.iconColor,
           ),
           onPressed: () {
             Navigator.pop(context); // Go back to the previous screen
@@ -51,9 +55,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.settings,
-              color: Colors.white,
+              color: themeProvider.iconColor,
             ),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/favouritelist.dart';
@@ -5,31 +6,36 @@ import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/page/favorites_provider.dart';
 import 'package:widgets_image/page/home.dart';
 import 'package:widgets_image/cart.dart';
+import 'package:widgets_image/page/theme_provider.dart';
 import 'package:widgets_image/settings.dart';
+import 'package:widgets_image/category_page.dart';
+import 'package:iconsax/iconsax.dart';
 
 class NavBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return BottomNavigationBar(
       selectedItemColor: Colors.black,
+      showSelectedLabels: false,
       unselectedItemColor: Colors.black,
       showUnselectedLabels: false,
       items: [
         BottomNavigationBarItem(
-           backgroundColor:   Colors.white ,
-          icon: Icon(Icons.home),
+          backgroundColor: themeProvider.colors,
+          icon: Icon(Iconsax.home, color: themeProvider.iconColor),
           label: translation(context).trangchu,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: translation(context).yeuthich,
+          icon: Icon(Iconsax.category, color: themeProvider.iconColor),
+          label: translation(context).danhmuc,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
+          icon: Icon(Iconsax.shopping_cart, color: themeProvider.iconColor),
           label: translation(context).giohang,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
+          icon: Icon(Iconsax.setting, color: themeProvider.iconColor),
           label: translation(context).caidat,
         ),
       ],
@@ -44,16 +50,19 @@ class NavBarWidget extends StatelessWidget {
             break;
           case 1:
             // Điều hướng đến trang Search khi nhấn vào mục Search
-                        final favoritesProvider =
-                Provider.of<FavoritesProvider>(context, listen: false);
+            final favoritesProvider =
+            Provider.of<FavoritesProvider>(context, listen: false);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) =>
+            //         FavoritesPage(favoriteProducts: favoritesProvider.favoriteProducts),
+            //   ),
+            // );
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    FavoritesPage(favoriteProducts: favoritesProvider.favoriteProducts),
-              ),
+              MaterialPageRoute(builder: (context) => CategoryPage()),
             );
-
             break;
           case 2:
             // Điều hướng đến trang Favorites khi nhấn vào mục Favorites

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart'; // Thêm import này nếu chưa có
 import 'package:widgets_image/constants/color.dart';
 import 'package:widgets_image/custom_shape/container/circurlar_container.dart';
@@ -11,12 +12,14 @@ import 'package:widgets_image/orderpage.dart';
 import 'package:widgets_image/page/home.dart';
 import 'package:widgets_image/edit_profile.dart'; // Import trang EditProfilePage
 import 'package:widgets_image/data/cart_model.dart';
+import 'package:widgets_image/page/theme_provider.dart';
 
 import 'custom_shape/container/primary_header_cotainer.dart'; // Thêm import này nếu chưa có
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -36,7 +39,7 @@ class SettingsPage extends StatelessWidget {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(Icons.arrow_back, color: TColors.white),
+                            child: Icon(Icons.arrow_back, color: themeProvider.iconColor),
                           ),
                           SizedBox(width: 10), // Khoảng cách giữa icon và text
                           GestureDetector(
@@ -48,7 +51,7 @@ class SettingsPage extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineLarge!
-                                  .apply(color: TColors.white),
+                                  .apply(color: themeProvider.textColor),
                             ),
                           ),
                         ],
@@ -92,7 +95,7 @@ class SettingsPage extends StatelessWidget {
               thickness: 3,
             ),
             ListTile(
-              leading: Icon(Icons.edit),
+              leading: Icon(Iconsax.edit),
               title: Text(
                 translation(context).chinhsuathongtin,
                 style: TextStyle(
@@ -108,7 +111,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.shopping_cart),
+              leading: Icon(Iconsax.receipt),
               title: Text(
                 translation(context).donhangcuatoi,
                 style: TextStyle(
@@ -124,7 +127,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_box),
+              leading: Icon(Iconsax.logout),
               title: Text(
                 translation(context).dangxuat,
                 style: TextStyle(

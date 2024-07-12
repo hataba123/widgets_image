@@ -10,7 +10,7 @@ class BannerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 200,
+        height: 150,
         autoPlay: true,
         autoPlayInterval: Duration(seconds: 3),
         enlargeCenterPage: true,
@@ -25,7 +25,7 @@ class BannerWidget extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 5.0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -36,7 +36,7 @@ class BannerWidget extends StatelessWidget {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(18),
                 child: Image.asset(
                   imagePath,
                   fit: BoxFit.cover,

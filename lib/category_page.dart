@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_image/cart.dart';
@@ -10,12 +9,10 @@ import 'package:widgets_image/favouritelist.dart';
 import 'package:widgets_image/language/language_constants.dart';
 import 'package:widgets_image/login.dart';
 import 'package:widgets_image/main.dart';
-import 'package:widgets_image/product_card.dart';
 import 'package:widgets_image/settings.dart';
 import '../data/data.dart';
 import '../config/const.dart';
 import 'package:widgets_image/banner.dart';
-import 'navbar.dart';
 import 'package:widgets_image/productdetailpage.dart';
 import 'theme_provider.dart';
 import 'package:widgets_image/constants/color.dart';
@@ -23,14 +20,14 @@ import 'package:widgets_image/category_list.dart';
 import 'package:widgets_image/global.dart' as globals;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:widgets_image/language/language.dart';
-class MyHome extends StatefulWidget {
-  const MyHome({super.key});
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({super.key});
 
   @override
-  State<MyHome> createState() => _MyHomeState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _CategoryPageState extends State<CategoryPage> {
   List<ProductModel> lstProduct = [];
   List<ProductModel> bestSellingProducts = [];
   List<ProductModel> newestProducts = [];
@@ -136,14 +133,13 @@ class _MyHomeState extends State<MyHome> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-              color: themeProvider.bodyColor, // Sử dụng màu nền từ ThemeProvider
-          // decoration: const BoxDecoration(
-          //   gradient: LinearGradient(
-          //     colors: [Colors.blue, Colors.purple],
-          //     begin: Alignment.topLeft,
-          //     end: Alignment.bottomRight,
-          //   ),
-          // ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
           child: AppBar(
             title: isSearching
                 ? TextField(
@@ -153,24 +149,13 @@ class _MyHomeState extends State<MyHome> {
                     ),
                     onChanged: updateSearch,
                   )
-                : Text("", style: TextStyle(color: themeProvider.textColor),),
+                : const Text("FortDenim", style: TextStyle(color: Colors.white)),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: [
               IconButton(
-                icon: Icon(Iconsax.camera),
-                onPressed: () {
-                  setState(() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => FavoritesPage(favoriteProducts: favoriteProducts)),
-                    );
-                  });
-                },
-                ),
-              IconButton(
-                icon: Icon(isSearching ? Icons.close : Iconsax.search_normal),
+                icon: Icon(isSearching ? Icons.close : Icons.search),
                 onPressed: () {
                   setState(() {
                     isSearching = !isSearching;
@@ -179,13 +164,10 @@ class _MyHomeState extends State<MyHome> {
                 },
               ),
               IconButton(
-            icon: Icon(Iconsax.heart),
+            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () {
               setState(() {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FavoritesPage(favoriteProducts: favoriteProducts)),
-                );
+                isFavorite = !isFavorite;
               });
             },
             ),
@@ -195,47 +177,44 @@ class _MyHomeState extends State<MyHome> {
       ),
       drawer: Drawer(
         child: Container(
-            color: themeProvider.bodyColor, // Sử dụng màu nền từ ThemeProvider
-          // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //     colors: [Colors.lightBlue[100]!, Colors.purple],
-          //     begin: Alignment.topLeft,
-          //     end: Alignment.bottomRight,
-          //   ),
-          // ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.lightBlue[100]!, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                decoration:  BoxDecoration(
-                  color: themeProvider.bodyColor,
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
                 ),
-                accountName: Center( 
-                  child:  Text(
+                accountName: const Text(
                   'User',
                   style: TextStyle(
-                    color: themeProvider.textColor,
+                    color: Colors.white,
                     fontSize: 24,
-                    ),
                   ),
                 ),
                 accountEmail: Text(
                   globals.loggedInEmail,
-                  style: TextStyle(
-                    color: themeProvider.textColor,
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
               ),
               ListTile(
-                leading: const Icon(Iconsax.home),
+                leading: const Icon(Icons.home),
                 title: Text(translation(context).trangchu),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: const Icon(Iconsax.settings),
+                leading: const Icon(Icons.settings),
                 title: Text(translation(context).caidat),
                 onTap: () {
                   Navigator.push(
@@ -245,19 +224,17 @@ class _MyHomeState extends State<MyHome> {
                 },
               ),
               ListTile(
-              leading: const Icon(Iconsax.moon),
-              title: Text(
-                translation(context).chedosangtoi,
-              ),
-              trailing: Switch(
-                value: themeProvider.isDarkMode,
-                onChanged: (value) {
-                  themeProvider.toggleTheme(!value);
-                },
-              ),
+                leading: const Icon(Icons.brightness_6),
+                title:  Text(translation(context).chedosangtoi),
+                trailing: Switch(
+                  value: !themeProvider.isDarkMode,
+                  onChanged: (value) {
+                    themeProvider.toggleTheme(!value);
+                  },
+                ),
               ),
               ListTile(
-              leading: Icon(Iconsax.global),
+              leading: Icon(Icons.language),
               title: Text(translation(context).ngonngu),
               onTap: () {
                 showModalBottomSheet(
@@ -285,7 +262,7 @@ class _MyHomeState extends State<MyHome> {
               },
             ),
               ListTile(
-                leading: Icon(Iconsax.logout),
+                leading: Icon(Icons.logout),
                 title: Text(translation(context).dangxuat),
                 onTap: () {
                   Navigator.push(
@@ -295,7 +272,7 @@ class _MyHomeState extends State<MyHome> {
                 },
               ),
               ListTile(
-                leading: Icon(Iconsax.shopping_cart),
+                leading: Icon(Icons.shopping_cart),
                 title: Text(translation(context).giohang),
                 onTap: () {
                   Navigator.push(
@@ -305,7 +282,7 @@ class _MyHomeState extends State<MyHome> {
                 },
               ),
                   ListTile(
-                leading: Icon(Iconsax.heart),
+                leading: Icon(Icons.favorite),
                 title: Text(translation(context).yeuthich),
                 onTap: () {
                   Navigator.push(
@@ -319,31 +296,21 @@ class _MyHomeState extends State<MyHome> {
         ),
       ),
       body: Container(
-          color: themeProvider.backgroundColor, // Sử dụng màu nền từ ThemeProvider
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     colors: [Colors.lightBlue[100]!, Colors.purple!],
-        //     begin: Alignment.topLeft,
-        //     end: Alignment.bottomRight,
-        //   ),
-        // ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.lightBlue[100]!, Colors.purple!],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Column(
           children: [
-            SizedBox(height: 10), // Adjust the height as needed
             BannerWidget(
               images: [
                 'assets/images/banner_1.jpg',
                 'assets/images/banner_2.jpg',
               ],
             ),
-          //   ListView(
-          //   scrollDirection: Axis.horizontal,
-          //   children: [
-          //     ProductCard(image: 'assets/images/product_1.jpg', name: 'Product 1', price: 29.99),
-          //     ProductCard(image: 'assets/images/product_2.jpg', name: 'Product 2', price: 19.99),
-          //     ProductCard(image: 'assets/images/product_3.jpg', name: 'Product 3', price: 39.99),
-          //   ],
-          // ),
           if (categories.isNotEmpty)
             CategoryList(
               categories: categories,
@@ -406,13 +373,13 @@ class _MyHomeState extends State<MyHome> {
             ),
             Expanded(
               child: ListView(
-                padding:  EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 children: [
                   if (!isSearching) ...[
                     buildProductSection(translation(context).spbanchay, bestSellingProducts),
-                     SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     buildProductSection(translation(context).spmoinhat, newestProducts),
-                     SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     buildProductSection(
                         translation(context).spgiamgia, discountedProducts),
                   ] else ...[
@@ -421,7 +388,6 @@ class _MyHomeState extends State<MyHome> {
                 ],
               ),
             ),
-            NavBarWidget(),
           ],
         ),
       ),
@@ -429,16 +395,15 @@ class _MyHomeState extends State<MyHome> {
   }
 
   Widget buildProductSection(String title, List<ProductModel> products) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 20,
+          style: const TextStyle(
+            fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: themeProvider.headingColor,
+            color: TColors.info,
           ),
         ),
         const SizedBox(height: 8),
